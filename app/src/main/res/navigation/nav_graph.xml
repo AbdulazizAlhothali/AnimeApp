@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/animeFragment">
+
+    <fragment
+        android:id="@+id/animeFragment"
+        android:name="com.example.animeapp.ui.main.AnimeFragment"
+        android:label="anime_fragment"
+        tools:layout="@layout/anime_fragment" />
+</navigation>

@@ -10,7 +10,7 @@ import com.example.animeapp.network.AnimeRepo
 import kotlinx.coroutines.launch
 
 class AnimeViewModel : ViewModel() {
-    val repo = AnimeRepo()
+    private val repo = AnimeRepo()
 
     fun anime (searchKeyword: String?): LiveData<AnimeData>{
         val animes = MutableLiveData<AnimeData>()
