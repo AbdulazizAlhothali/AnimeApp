@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.animeapp.R
 
-class MainFragment : Fragment() {
+class AnimeFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = AnimeFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: AnimeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AnimeViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
