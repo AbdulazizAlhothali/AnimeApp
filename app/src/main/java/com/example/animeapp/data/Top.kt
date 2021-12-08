@@ -1,6 +1,6 @@
 package com.example.animeapp.data
 
-import com.google.gson.annotations.SerializedName
+
 
 
 data class Top (
