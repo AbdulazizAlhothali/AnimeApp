@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="signUpViewModel"
+            type="com.example.animeapp.ui.main.SignUpViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.SignUpFragment">
+
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="164dp"
+            android:layout_height="68dp"
+            android:onClick="@{()->signUpViewModel.authentication()}"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.802" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="104dp"
+            android:layout_marginEnd="108dp"
+            android:ems="10"
+            android:text="@={signUpViewModel.name}"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:layout_marginEnd="19dp"
+            android:ems="10"
+            android:text="@={signUpViewModel.signup_username}"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="49dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="@={signUpViewModel.email}"
+            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="35dp"
+            android:ems="10"
+            android:text="@={signUpViewModel.pass}"
+            android:inputType="textPassword"
+            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="46dp"
+            android:ems="10"
+            android:text="@={signUpViewModel.confirm}"
+            android:inputType="textPassword"
+            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+
+        <Button
+            android:id="@+id/btnGo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            tools:layout_editor_absoluteX="140dp"
+            tools:layout_editor_absoluteY="650dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

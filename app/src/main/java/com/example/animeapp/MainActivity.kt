@@ -2,7 +2,9 @@ package com.example.animeapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
 import com.example.animeapp.ui.main.AnimeFragment
+import com.example.animeapp.ui.main.SignUpFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,9 +12,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, AnimeFragment.newInstance())
-                .commitNow()
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
+            val navController = navHostFragment.navController
         }
     }
 }

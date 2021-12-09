@@ -27,4 +27,5 @@ class AnimeViewModel : ViewModel() {
         }
         return animes
     }
+
 }

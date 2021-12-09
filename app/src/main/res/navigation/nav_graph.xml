@@ -10,4 +10,12 @@
         android:name="com.example.animeapp.ui.main.AnimeFragment"
         android:label="anime_fragment"
         tools:layout="@layout/anime_fragment" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.animeapp.ui.main.SignUpFragment"
+        android:label="SignUpFragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_animeFragment"
+            app:destination="@id/animeFragment" />
+    </fragment>
 </navigation>
