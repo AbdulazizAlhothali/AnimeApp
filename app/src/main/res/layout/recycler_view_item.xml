@@ -8,64 +8,55 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="212dp">
 
-        <ImageView
-            android:id="@+id/ivAnimePoster"
+
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#e74c3c"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="More Info"
-            android:background="@drawable/bgbtn"
-            android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:cardCornerRadius="20dp"
+            android:layout_margin="8dp">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@drawable/overlaybg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvRate"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="2dp"
-            android:layout_marginStart="16dp"
-            android:text="10.0"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toTopOf="@+id/tvAnimeName"
-            app:layout_constraintStart_toStartOf="parent" />
+                <ImageView
+                    android:id="@+id/ivAnimePoster"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@color/teal_700"
+                    android:scaleType="fitXY" />
 
-        <TextView
-            android:id="@+id/tvAnimeName"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="18dp"
-            android:layout_marginStart="16dp"
-            android:text="Naruto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/tvAnimeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivAnimePoster"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Name"
+                    android:textColor="#262626"
+                    android:textSize="30sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tvRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvAnimeName"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="16dp"
+                    android:drawablePadding="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:paddingBottom="15dp"
+                    android:text="Description" />
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
 </layout>

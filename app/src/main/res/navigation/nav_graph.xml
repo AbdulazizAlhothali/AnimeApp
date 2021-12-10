@@ -9,10 +9,14 @@
         android:id="@+id/animeFragment"
         android:name="com.example.animeapp.ui.main.AnimeFragment"
         android:label="anime_fragment"
-        tools:layout="@layout/anime_fragment" />
+        tools:layout="@layout/anime_fragment" >
+        <action
+            android:id="@+id/action_animeFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.animeapp.ui.main.SignUpFragment"
+        android:name="com.example.animeapp.ui.signup.SignUpFragment"
         android:label="SignUpFragment" >
         <action
             android:id="@+id/action_signUpFragment_to_animeFragment"
@@ -23,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.animeapp.ui.main.SignInFragment"
+        android:name="com.example.animeapp.ui.signin.SignInFragment"
         android:label="SignInFragment" >
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"

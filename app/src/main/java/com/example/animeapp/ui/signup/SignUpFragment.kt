@@ -1,4 +1,4 @@
-package com.example.animeapp.ui.main
+package com.example.animeapp.ui.signup
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -10,8 +10,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
-import com.example.animeapp.R
 import com.example.animeapp.databinding.SignUpFragmentBinding
 
 class SignUpFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.example.animeapp.ui.main
+package com.example.animeapp.ui.signin
 
 import androidx.lifecycle.ViewModel
 

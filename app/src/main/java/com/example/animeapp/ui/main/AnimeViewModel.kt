@@ -12,15 +12,11 @@ import kotlinx.coroutines.launch
 class AnimeViewModel : ViewModel() {
     private val repo = AnimeRepo()
 
-    fun anime (searchKeyword: String?): LiveData<AnimeData>{
+    fun anime (): LiveData<AnimeData>{
         val animes = MutableLiveData<AnimeData>()
         viewModelScope.launch {
             try {
-                if (searchKeyword.isNullOrBlank()){
                     animes.postValue(repo.getTopAnime())
-                } else {
-                    animes.postValue(repo.searchAnime(searchKeyword))
-                }
             } catch (e: Throwable ){
                 Log.e("Anime", "Anime Problem : ${e.localizedMessage}")
             }

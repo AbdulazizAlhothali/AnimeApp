@@ -2,11 +2,11 @@ package com.example.animeapp.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.animeapp.R
-import com.example.animeapp.data.AnimeData
 import com.example.animeapp.data.Data
 
 import com.example.animeapp.databinding.RecyclerViewItemBinding
@@ -32,8 +32,11 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
 
     fun bind(anime: Data){
 
-        binding.ivAnimePoster.load(anime.attributes.posterImage.small)
+        binding.ivAnimePoster.load(anime.attributes.posterImage.original)
         binding.tvAnimeName.text = anime.attributes.canonicalTitle
         binding.tvRate.text= anime.attributes.averageRating.toString()
+        binding.root.setOnClickListener {
+            Toast.makeText(binding.root.context,"you clicked ${binding.tvAnimeName.text}",Toast.LENGTH_LONG).show()
+        }
     }
 }

@@ -1,7 +1,6 @@
-package com.example.animeapp.ui.main
+package com.example.animeapp.ui.signin
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,9 +14,7 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.animeapp.R
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class SignInFragment : Fragment() {
 
@@ -108,7 +105,7 @@ class SignInFragment : Fragment() {
         }
     }
 
-    fun checkEmpty(arrOfEditText: ArrayList<EditText>): Boolean {
+    private fun checkEmpty(arrOfEditText: ArrayList<EditText>): Boolean {
         var returnValue = false
         for (i in arrOfEditText) {
             if (i.text.toString() == "") {

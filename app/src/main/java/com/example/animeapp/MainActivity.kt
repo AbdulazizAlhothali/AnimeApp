@@ -3,8 +3,6 @@ package com.example.animeapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
-import com.example.animeapp.ui.main.AnimeFragment
-import com.example.animeapp.ui.main.SignUpFragment
 
 class MainActivity : AppCompatActivity() {
 

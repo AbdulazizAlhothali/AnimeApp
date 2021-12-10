@@ -1,4 +1,4 @@
-package com.example.animeapp.ui.main
+package com.example.animeapp.ui.signup
 
 import android.util.Log
 import androidx.lifecycle.LiveData
