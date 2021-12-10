@@ -33,11 +33,13 @@ class AnimeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        this.activity?.actionBar?.hide()
 
-        binding.rvAnime.layoutManager= LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvAnime.layoutManager= LinearLayoutManager(context/*, LinearLayoutManager.HORIZONTAL, false*/)
         animeVm = ViewModelProvider(this)[AnimeViewModel::class.java]
 
         loadAnimeImages()
+
 
 
     }
@@ -45,11 +47,11 @@ class AnimeFragment : Fragment() {
     private fun loadAnimeImages(query: String? = null){
         animeVm.anime(query).observe(requireActivity(), {
             if (query.isNullOrEmpty()){
-                binding.rvAnime.adapter= AnimeAdapter(it.top)
+                binding.rvAnime.adapter= AnimeAdapter(it.data)
             } else {
-                binding.rvAnime.swapAdapter(AnimeAdapter(it.top),false)
+                binding.rvAnime.swapAdapter(AnimeAdapter(it.data),false)
             }
-            Log.d("Anime main response", it.top.toString())
+            Log.d("Anime main response", it.data.toString())
         })
     }
 

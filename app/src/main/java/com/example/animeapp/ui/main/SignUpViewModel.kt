@@ -25,10 +25,9 @@ class SignUpViewModel : ViewModel() {
     val signup_username = MutableLiveData<String>()
 
     private val statusMessage = MutableLiveData<Event<String>>()
-    val message: LiveData<Event<String>>
-        get() = statusMessage
+    val message: LiveData<Event<String>> = statusMessage
     private val _navigateScreen = MutableLiveData<Event<NavDirections>>()
-    //val navigateScreen: LiveData<Event<NavDirections>> = _navigateScreen
+    val navigateScreen: LiveData<Event<NavDirections>> = _navigateScreen
 
 
     fun authentication(){
@@ -59,9 +58,9 @@ class SignUpViewModel : ViewModel() {
                                     Log.w("TAG", "Error writing document", e)
                                 }
 
-                            /*val action =
-                                SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
-                            _navigateScreen.value = Event(action)*/
+                            val action =
+                                SignUpFragmentDirections.actionSignUpFragmentToAnimeFragment()
+                            _navigateScreen.value = Event(action)
                         } else {
 
                             statusMessage.value = Event("Error Message: " + task.exception!!.message.toString())
@@ -78,6 +77,7 @@ class SignUpViewModel : ViewModel() {
             if (i == "") {
                 statusMessage.value = Event("fields must be filled")
                 returnValue = false
+                break
             } else {
                 returnValue = true
             }

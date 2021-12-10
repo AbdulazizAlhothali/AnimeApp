@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.animeapp.R
 import com.example.animeapp.data.AnimeData
-import com.example.animeapp.data.Top
+import com.example.animeapp.data.Data
+
 import com.example.animeapp.databinding.RecyclerViewItemBinding
 
-class AnimeAdapter(val top: List<Top>) : RecyclerView.Adapter<CustomHolder>() {
+class AnimeAdapter(val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
         val bind = DataBindingUtil.inflate<RecyclerViewItemBinding>(LayoutInflater.from(parent.context),
             R.layout.recycler_view_item,parent,false)
@@ -29,10 +30,10 @@ class AnimeAdapter(val top: List<Top>) : RecyclerView.Adapter<CustomHolder>() {
 }
 class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.ViewHolder(binding.root){
 
-    fun bind(anime: Top){
+    fun bind(anime: Data){
 
-        binding.ivAnimePoster.load(anime.image_url)
-        binding.tvAnimeName.text = anime.title
-        binding.tvRate.text= anime.score.toString()
+        binding.ivAnimePoster.load(anime.attributes.posterImage.small)
+        binding.tvAnimeName.text = anime.attributes.canonicalTitle
+        binding.tvRate.text= anime.attributes.averageRating.toString()
     }
 }
