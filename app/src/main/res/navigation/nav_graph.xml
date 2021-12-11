@@ -11,8 +11,8 @@
         android:label="anime_fragment"
         tools:layout="@layout/anime_fragment" >
         <action
-            android:id="@+id/action_animeFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            android:id="@+id/action_animeFragment_to_animeDetailsFragment"
+            app:destination="@id/animeDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -34,6 +34,15 @@
             app:destination="@id/signUpFragment" />
         <action
             android:id="@+id/action_signInFragment_to_animeFragment"
+            app:destination="@id/animeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/animeDetailsFragment"
+        android:name="com.example.animeapp.ui.animedetail.AnimeDetailsFragment"
+        android:label="anime_details_fragment"
+        tools:layout="@layout/anime_details_fragment" >
+        <action
+            android:id="@+id/action_animeDetailsFragment_to_animeFragment"
             app:destination="@id/animeFragment" />
     </fragment>
 </navigation>
