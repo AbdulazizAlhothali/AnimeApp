@@ -16,11 +16,6 @@ import com.example.animeapp.databinding.AnimeFragmentBinding
 class AnimeFragment : Fragment() {
 
     private lateinit var binding: AnimeFragmentBinding
-
-    companion object {
-        fun newInstance() = AnimeFragment()
-    }
-
     private lateinit var animeVm: AnimeViewModel
 
     override fun onCreateView(

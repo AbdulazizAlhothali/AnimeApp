@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
-import com.example.animeapp.data.User
+import com.example.animeapp.data.firestore.User
 import com.example.animeapp.event.Event
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
