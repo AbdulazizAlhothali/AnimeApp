@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/animeFragment">
+    app:startDestination="@id/favoriteFragment">
 
     <fragment
         android:id="@+id/animeFragment"
@@ -55,4 +55,8 @@
             android:id="@+id/action_searchFragment_to_animeDetailsFragment"
             app:destination="@id/animeDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.animeapp.favorite.FavoriteFragment"
+        android:label="FavoriteFragment" />
 </navigation>

@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.animeapp.R
@@ -17,7 +16,6 @@ import com.example.animeapp.data.firestore.Favorite
 import com.example.animeapp.databinding.RecyclerViewItemBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 
 class AnimeAdapter(val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
@@ -61,8 +59,8 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
             binding.root.findNavController().navigate(action)
 
             /*** saving data to Firestore */
-             /*val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
-            val fav= Favorite(firebaseUserId,anime.attributes.posterImage.original,binding.tvAnimeName.text.toString(),"hussam")
+             val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
+            val fav= Favorite(firebaseUserId,anime.attributes.posterImage.original,binding.tvAnimeName.text.toString())
             val firebaseFirestore = FirebaseFirestore.getInstance()
             firebaseFirestore.collection("users").document(firebaseUserId).collection("Favorite").document("${binding.tvAnimeName.text}")
                 .set(fav)
@@ -71,7 +69,7 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
                 }
                 .addOnFailureListener { e ->
                     Log.w("TAG", "Error writing document", e)
-                }*/
+                }
 
 
         }

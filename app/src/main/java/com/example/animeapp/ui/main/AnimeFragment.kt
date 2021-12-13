@@ -70,9 +70,7 @@ class AnimeFragment : Fragment() {
 
 
             }
-       /* } else if (i < 20){
 
-        }*/
 
 
 
