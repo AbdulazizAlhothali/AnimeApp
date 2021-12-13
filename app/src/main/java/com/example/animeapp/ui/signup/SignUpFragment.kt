@@ -16,12 +16,10 @@ class SignUpFragment : Fragment() {
 
     private lateinit var navController: NavController
     private lateinit var binding: SignUpFragmentBinding
-
-    companion object {
-        fun newInstance() = SignUpFragment()
+    //private lateinit var signUpVM: SignUpViewModel
+    private val signUpVM by lazy {
+        ViewModelProvider(this).get(SignUpViewModel::class.java)
     }
-
-    private lateinit var signUpVM: SignUpViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,15 +32,8 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //this.activity?.actionBar?.hide()
-
-        //
-        signUpVM= ViewModelProvider(this).get(SignUpViewModel::class.java)
         binding.lifecycleOwner= this
         binding.signUpViewModel= signUpVM
-
-
-
         navController = Navigation.findNavController(view)
         signUpVM.navigateScreen.observe(requireActivity(), Observer {
           it.getContentIfNotHandled()?.let { action->
@@ -55,6 +46,6 @@ class SignUpFragment : Fragment() {
             }
         })
 
-    }//end of viewCreated
+    }
 
 }

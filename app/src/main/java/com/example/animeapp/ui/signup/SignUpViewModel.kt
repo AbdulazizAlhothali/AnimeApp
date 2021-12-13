@@ -15,9 +15,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 class SignUpViewModel : ViewModel() {
     val auth = FirebaseAuth.getInstance()
     private var firebaseUserId: String = ""
-    lateinit var ref: DatabaseReference
-    private lateinit var firebaseFirestore: FirebaseFirestore
-
     val email = MutableLiveData<String>()
     val pass = MutableLiveData<String>()
     val confirm = MutableLiveData<String>()
@@ -41,14 +38,14 @@ class SignUpViewModel : ViewModel() {
                         if (task.isSuccessful) {
                             Log.d("TAG", "................TASK SUCCEED.................")
                             firebaseUserId = auth.currentUser!!.uid
-                            ref = FirebaseDatabase.getInstance().reference.child("Users")
+                            FirebaseDatabase.getInstance().reference.child("Users")
                                 .child(firebaseUserId)
                             val user = User(
                                 firebaseUserId,
                                 name.value.toString(),
                                 signup_username.value.toString(),
                                 email.value.toString())
-                            firebaseFirestore = FirebaseFirestore.getInstance()
+                            val firebaseFirestore = FirebaseFirestore.getInstance()
                             firebaseFirestore.collection("users").document(firebaseUserId)
                                 .set(user)
                                 .addOnSuccessListener {

@@ -12,11 +12,11 @@ import kotlinx.coroutines.launch
 class AnimeViewModel : ViewModel() {
     private val repo = AnimeRepo()
 
-    fun anime (): LiveData<AnimeData>{
+    fun anime (pageNum:String): LiveData<AnimeData>{
         val animes = MutableLiveData<AnimeData>()
         viewModelScope.launch {
             try {
-                    animes.postValue(repo.getTopAnime())
+                    animes.postValue(repo.getTopAnime(pageNum))
             } catch (e: Throwable ){
                 Log.e("Anime", "Anime Problem : ${e.localizedMessage}")
             }

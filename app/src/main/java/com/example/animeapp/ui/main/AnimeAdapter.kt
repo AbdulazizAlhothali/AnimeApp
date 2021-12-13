@@ -61,8 +61,8 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
             binding.root.findNavController().navigate(action)
 
             /*** saving data to Firestore */
-            /* val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
-            val fav= Favorite(firebaseUserId,anime.attributes.posterImage.original,binding.tvAnimeName.text.toString())
+             /*val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
+            val fav= Favorite(firebaseUserId,anime.attributes.posterImage.original,binding.tvAnimeName.text.toString(),"hussam")
             val firebaseFirestore = FirebaseFirestore.getInstance()
             firebaseFirestore.collection("users").document(firebaseUserId).collection("Favorite").document("${binding.tvAnimeName.text}")
                 .set(fav)
