@@ -6,8 +6,11 @@ import retrofit2.http.Query
 
 interface AnimeApi {
     @GET("anime?page[limit]=20&")
-    suspend fun getTopAnime(@Query("page[offset]") pageNum: String): AnimeData
+    suspend fun allAnime(@Query("page[offset]") pageNum: String): AnimeData
 
     @GET("anime")
     suspend fun searchAnime(@Query("filter[text]") searchKeyword: String): AnimeData
+
+    @GET("trending/anime")
+    suspend fun trendingAnime (): AnimeData
 }

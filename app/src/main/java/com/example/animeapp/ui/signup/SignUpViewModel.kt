@@ -55,8 +55,7 @@ class SignUpViewModel : ViewModel() {
                                     Log.w("TAG", "Error writing document", e)
                                 }
 
-                            val action =
-                                SignUpFragmentDirections.actionSignUpFragmentToAnimeFragment()
+                            val action = SignUpFragmentDirections.actionSignUpFragmentToAnimeFragment()
                             _navigateScreen.value = Event(action)
                         } else {
 

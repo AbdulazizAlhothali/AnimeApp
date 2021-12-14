@@ -7,8 +7,8 @@ import kotlinx.coroutines.withContext
 class AnimeRepo {
     private val api= AnimeBuilder.animeApi
 
-    suspend fun getTopAnime(pageNum:String): AnimeData = withContext(Dispatchers.IO) {
-        api.getTopAnime(pageNum)
+    suspend fun allAnime(pageNum:String): AnimeData = withContext(Dispatchers.IO) {
+        api.allAnime(pageNum)
     }
     suspend fun searchAnime(searchKeyword: String): AnimeData = withContext(Dispatchers.IO) {
         api.searchAnime(searchKeyword)

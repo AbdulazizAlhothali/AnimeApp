@@ -1,5 +1,6 @@
 package com.example.animeapp.favorite
 
+import android.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -43,7 +44,17 @@ class FavoriteFragment : Fragment() {
         showMyFavAnime()
 
         binding.btnDelete.setOnClickListener{
-            delete()
+
+
+
+
+            delete().notifyDataSetChanged()
+
+            //favListAdapter.notifyDataSetChanged()
+
+            /** Swap*/
+
+
         }
 
     }
@@ -70,12 +81,22 @@ class FavoriteFragment : Fragment() {
         })
     }
 
-    private fun delete(){
+    private fun showChangeLanguage(type:String){
+        val mBuilder = AlertDialog.Builder(this.requireContext())
+        mBuilder.setTitle("Choose Language")
+        mBuilder.setMessage("${type.toString()}")
+        val mDialog =mBuilder.create()
+        mDialog.show()
+    }
+
+    private fun delete(): FavoriteAdapter {
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser!!.uid
         db = FirebaseFirestore.getInstance()
         db.collection("users").document(currentUser).collection("Favorite").document("Cowboy Bebop").delete()
 
+
+        return favListAdapter
     }
 
 }

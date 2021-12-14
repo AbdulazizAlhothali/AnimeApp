@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animeapp.R
+import com.example.animeapp.data.Links
 import com.example.animeapp.databinding.AnimeFragmentBinding
 
 class AnimeFragment : Fragment() {
@@ -40,26 +41,16 @@ class AnimeFragment : Fragment() {
 
         loadAnimeImages()
 
-
-
-
         check()
 
         binding.btnNext.setOnClickListener {
-
-
             if (i >= 0){
                 i += 20
                 loadAnimeImages("$i")
 
                 binding.btnPreviouse.isEnabled= true
             }
-
-
         }
-
-
-
 
             binding.btnPreviouse.setOnClickListener {
                 check()
@@ -67,10 +58,15 @@ class AnimeFragment : Fragment() {
                     i-=20
                     loadAnimeImages("$i")
                 }
+                if (i==0){
+                    binding.btnPreviouse.isEnabled= false
+                }
 
 
             }
+       /* } else if (i < 20){
 
+        }*/
 
 
 
@@ -79,7 +75,7 @@ class AnimeFragment : Fragment() {
 
     }
 
-    fun check (){
+    private fun check (){
         if (i<20){
             binding.btnPreviouse.isEnabled= false
         } else if (i>=20){
@@ -88,7 +84,8 @@ class AnimeFragment : Fragment() {
     }
 
     private fun loadAnimeImages(pageNum:String= "0"){
-        animeVm.anime(pageNum).observe(requireActivity(), {
+
+        animeVm.allAnime(pageNum).observe(requireActivity(), {
                 binding.rvAnime.adapter= AnimeAdapter(it.data)
             Log.d("Anime main response", it.toString())
         })

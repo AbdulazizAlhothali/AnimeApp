@@ -16,7 +16,6 @@ class SignUpFragment : Fragment() {
 
     private lateinit var navController: NavController
     private lateinit var binding: SignUpFragmentBinding
-    //private lateinit var signUpVM: SignUpViewModel
     private val signUpVM by lazy {
         ViewModelProvider(this).get(SignUpViewModel::class.java)
     }
@@ -45,7 +44,5 @@ class SignUpFragment : Fragment() {
                 Toast.makeText(requireContext(),it, Toast.LENGTH_SHORT).show()
             }
         })
-
     }
-
 }
