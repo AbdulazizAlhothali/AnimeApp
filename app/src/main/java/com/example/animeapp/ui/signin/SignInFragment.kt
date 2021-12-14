@@ -37,7 +37,7 @@ class SignInFragment : Fragment() {
     private fun retrieveData(){
 
         val myPref = requireContext().getSharedPreferences("myPref", Context.MODE_PRIVATE)
-        val name = myPref.getString("username", " ")
+        val name = myPref.getString("username", "")
         username_email.setText(name)
 
     }

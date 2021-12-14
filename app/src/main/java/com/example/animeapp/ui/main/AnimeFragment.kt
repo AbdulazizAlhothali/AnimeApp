@@ -41,7 +41,7 @@ class AnimeFragment : Fragment() {
         binding.rvAnime.layoutManager= GridLayoutManager(context,1)
             //LinearLayoutManager(context,/*, LinearLayoutManager.HORIZONTAL, false*/)
         animeVm = ViewModelProvider(this)[AnimeViewModel::class.java]
-        animeVm.myNotification(MainActivity())
+        //animeVm.myNotification(MainActivity())
 
         loadAnimeImages()
 

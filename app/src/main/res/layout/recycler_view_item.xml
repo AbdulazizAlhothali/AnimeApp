@@ -77,8 +77,10 @@
                             android:text="Description" />
 
                         <ImageView
+                            android:clickable="true"
+                            android:id="@+id/btnLike"
                             android:layout_width="104dp"
-
+                            android:paddingLeft="40dp"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_baseline_favorite_24" />
 

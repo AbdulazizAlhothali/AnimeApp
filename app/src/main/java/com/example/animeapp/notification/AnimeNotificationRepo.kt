@@ -1,12 +1,11 @@
 package com.example.animeapp.notification
 
-import android.content.Context
+
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.example.animeapp.MainActivity
-import com.example.animeapp.ui.main.AnimeFragment
 import java.util.concurrent.TimeUnit
 
 class AnimeNotificationRepo () {

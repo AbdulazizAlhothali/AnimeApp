@@ -1,5 +1,8 @@
 package com.example.animeapp.ui.main
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -27,6 +30,7 @@ class AnimeAdapter(val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
     override fun onBindViewHolder(holder: CustomHolder, position: Int) {
         val anime = top[position]
         holder.bind(anime)
+
     }
 
     override fun getItemCount(): Int {
@@ -36,7 +40,41 @@ class AnimeAdapter(val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
 }
 class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.ViewHolder(binding.root){
 
+
+
+    @SuppressLint("ResourceAsColor")
     fun bind(anime: Data){
+
+
+
+
+        binding.btnLike.setOnClickListener {
+
+            val myPref2 = binding.root.context.getSharedPreferences("myPref", Context.MODE_PRIVATE)
+            val animeTitle = myPref2.getString("animeTitle", "")
+            val editor = myPref2.edit()
+            val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
+            val firebaseFirestore = FirebaseFirestore.getInstance()
+            /*** saving data to Firestore */
+            if ("${binding.tvAnimeName.text}"!=animeTitle){
+                editor.putString("animeTitle", "${binding.tvAnimeName.text}")
+                editor.apply()
+                val fav= Favorite(firebaseUserId,anime.attributes.posterImage.original,binding.tvAnimeName.text.toString())
+                firebaseFirestore.collection("users").document(firebaseUserId).collection("Favorite").document("${binding.tvAnimeName.text}")
+                    .set(fav)
+                    .addOnSuccessListener {
+                        Log.d("TAG", "DocumentSnapshot successfully written!")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("TAG", "Error writing document", e)
+                    }
+            } else{
+                firebaseFirestore.collection("users").document(firebaseUserId).collection("Favorite").document("${binding.tvAnimeName.text}").delete()
+                editor.putString("animeTitle", "")
+                editor.apply()
+            }
+        }
+
 
         binding.ivAnimePoster.load(anime.attributes.posterImage.original)
         binding.tvAnimeName.text = anime.attributes.canonicalTitle
@@ -58,18 +96,6 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
             )
             binding.root.findNavController().navigate(action)
 
-            /*** saving data to Firestore */
-             val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
-            val fav= Favorite(firebaseUserId,anime.attributes.posterImage.original,binding.tvAnimeName.text.toString())
-            val firebaseFirestore = FirebaseFirestore.getInstance()
-            firebaseFirestore.collection("users").document(firebaseUserId).collection("Favorite").document("${binding.tvAnimeName.text}")
-                .set(fav)
-                .addOnSuccessListener {
-                    Log.d("TAG", "DocumentSnapshot successfully written!")
-                }
-                .addOnFailureListener { e ->
-                    Log.w("TAG", "Error writing document", e)
-                }
 
 
         }
