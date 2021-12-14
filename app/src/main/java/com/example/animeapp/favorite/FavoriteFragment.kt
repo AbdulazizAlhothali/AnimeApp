@@ -84,7 +84,7 @@ class FavoriteFragment : Fragment() {
     private fun showChangeLanguage(type:String){
         val mBuilder = AlertDialog.Builder(this.requireContext())
         mBuilder.setTitle("Choose Language")
-        mBuilder.setMessage("${type.toString()}")
+        mBuilder.setMessage(type)
         val mDialog =mBuilder.create()
         mDialog.show()
     }

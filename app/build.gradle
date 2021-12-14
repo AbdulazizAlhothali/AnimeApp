@@ -75,7 +75,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // WorkManager
-    implementation 'androidx.work:work-runtime-ktx:2.7.0'
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
 
     testImplementation 'junit:junit:'

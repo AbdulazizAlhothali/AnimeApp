@@ -13,9 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animeapp.MainActivity
 import com.example.animeapp.R
 import com.example.animeapp.data.Links
 import com.example.animeapp.databinding.AnimeFragmentBinding
+import com.example.animeapp.notification.AnimeNotificationRepo
+import com.example.animeapp.notification.NotificationHelper
 
 class AnimeFragment : Fragment() {
 
@@ -38,10 +41,12 @@ class AnimeFragment : Fragment() {
         binding.rvAnime.layoutManager= GridLayoutManager(context,1)
             //LinearLayoutManager(context,/*, LinearLayoutManager.HORIZONTAL, false*/)
         animeVm = ViewModelProvider(this)[AnimeViewModel::class.java]
+        animeVm.myNotification(MainActivity())
 
         loadAnimeImages()
 
         check()
+        //AnimeNotificationRepo().myNotification(MainActivity())
 
         binding.btnNext.setOnClickListener {
             if (i >= 0){
@@ -50,6 +55,7 @@ class AnimeFragment : Fragment() {
 
                 binding.btnPreviouse.isEnabled= true
             }
+
         }
 
             binding.btnPreviouse.setOnClickListener {
@@ -64,9 +70,7 @@ class AnimeFragment : Fragment() {
 
 
             }
-       /* } else if (i < 20){
 
-        }*/
 
 
 
