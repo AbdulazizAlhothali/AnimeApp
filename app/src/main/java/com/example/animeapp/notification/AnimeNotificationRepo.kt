@@ -10,7 +10,7 @@ import com.example.animeapp.ui.main.AnimeFragment
 import java.util.concurrent.TimeUnit
 
 class AnimeNotificationRepo () {
-    val list = listOf("a","b","c").random()
+    private val list = listOf("a","b","c").random()
     fun myNotification(mainActivity: MainActivity){
         val myWorkRequest= PeriodicWorkRequest
             .Builder(AnimeWorker::class.java,15,TimeUnit.MINUTES)
@@ -21,7 +21,7 @@ class AnimeNotificationRepo () {
             .build()
         WorkManager.getInstance(mainActivity).enqueueUniquePeriodicWork(
             "periodicStockWorker",
-            ExistingPeriodicWorkPolicy.KEEP,
+            ExistingPeriodicWorkPolicy.REPLACE,
             myWorkRequest
         )
     }
