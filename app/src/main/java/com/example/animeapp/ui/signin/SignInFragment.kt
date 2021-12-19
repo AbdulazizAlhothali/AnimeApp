@@ -58,11 +58,11 @@ class SignInFragment : Fragment() {
         //showing username name or email
         retrieveData()
         // session management
-        /*val currentuser = auth.currentUser
+        val currentuser = auth.currentUser
         if (currentuser != null) {
             val action = SignInFragmentDirections.actionSignInFragmentToAnimeFragment()
             findNavController().navigate(action)
-        }*/
+        }
 
         login.setOnClickListener {
 

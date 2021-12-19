@@ -3,6 +3,8 @@ package com.example.animeapp.ui.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.PorterDuff
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,7 +20,9 @@ import com.example.animeapp.data.firestore.Favorite
 
 import com.example.animeapp.databinding.RecyclerViewItemBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
+import java.util.*
+import kotlin.concurrent.schedule
 
 class AnimeAdapter(val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
@@ -29,6 +33,7 @@ class AnimeAdapter(val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
 
     override fun onBindViewHolder(holder: CustomHolder, position: Int) {
         val anime = top[position]
+
         holder.bind(anime)
 
     }
@@ -40,64 +45,85 @@ class AnimeAdapter(val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
 }
 class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.ViewHolder(binding.root){
 
+    private val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val drawRed = binding.root.resources.getDrawable(R.drawable.ic_baseline_favorite_24, binding.root.resources.newTheme())
+    private val drawTale = binding.root.resources.getDrawable(R.drawable.ic_baseline_favorite_24, binding.root.resources.newTheme())
 
-
-    @SuppressLint("ResourceAsColor")
     fun bind(anime: Data){
 
+        drawRed.setTint(binding.root.resources.getColor(R.color.red, binding.root.resources.newTheme()) )
+        drawRed.setTintMode(PorterDuff.Mode.SRC_IN)
+        drawTale.setTint(binding.root.resources.getColor(R.color.teal_700, binding.root.resources.newTheme()) )
+        drawTale.setTintMode(PorterDuff.Mode.SRC_IN)
 
 
-
+        binding.btnLike.setImageDrawable(drawTale)
         binding.btnLike.setOnClickListener {
-
-            val myPref2 = binding.root.context.getSharedPreferences("myPref", Context.MODE_PRIVATE)
-            val animeTitle = myPref2.getString("animeTitle", "")
-            val editor = myPref2.edit()
-            val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
-            val firebaseFirestore = FirebaseFirestore.getInstance()
-            /*** saving data to Firestore */
-            if ("${binding.tvAnimeName.text}"!=animeTitle){
-                editor.putString("animeTitle", "${binding.tvAnimeName.text}")
-                editor.apply()
-                val fav= Favorite(firebaseUserId,anime.attributes.posterImage.original,binding.tvAnimeName.text.toString())
-                firebaseFirestore.collection("users").document(firebaseUserId).collection("Favorite").document("${binding.tvAnimeName.text}")
-                    .set(fav)
-                    .addOnSuccessListener {
-                        Log.d("TAG", "DocumentSnapshot successfully written!")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.w("TAG", "Error writing document", e)
-                    }
-            } else{
-                firebaseFirestore.collection("users").document(firebaseUserId).collection("Favorite").document("${binding.tvAnimeName.text}").delete()
-                editor.putString("animeTitle", "")
-                editor.apply()
-            }
+            check(true,anime)
         }
 
-
-        binding.ivAnimePoster.load(anime.attributes.posterImage.original)
+        check(false,anime)
+        binding.ivAnimePoster.load(anime.attributes.posterImage.large)
         binding.tvAnimeName.text = anime.attributes.canonicalTitle
         binding.tvRate.text= anime.attributes.averageRating.toString()
         val description = anime.attributes.description
         val ageRate = anime.attributes.ageRating
-
         binding.root.setOnClickListener {
-            Toast.makeText(binding.root.context,"you clicked ${binding.tvAnimeName.text}",Toast.LENGTH_LONG).show()
-
-
             val detailsArg = Details(anime.attributes.canonicalTitle,
                 anime.attributes.posterImage.original,
             description,
                 anime.attributes.averageRating.toString(),
             ageRate)
-            val action= AnimeFragmentDirections.actionAnimeFragmentToAnimeDetailsFragment(
-                detailsArg
-            )
+            val action= AnimeFragmentDirections.actionAnimeFragmentToAnimeDetailsFragment(detailsArg)
             binding.root.findNavController().navigate(action)
-
-
-
         }
+
+
+
+
+    }
+
+    private fun check(onclick: Boolean, anime: Data){
+        firebaseFirestore.collection("users")
+            .document(firebaseUserId)
+            .collection("Favorite")
+            .document(anime.attributes.canonicalTitle)
+            .get()
+            .addOnCompleteListener {
+                if (it.result.exists()){
+                    if (!onclick){
+
+                        binding.btnLike.setImageDrawable(drawRed)
+                    }else if (onclick) {
+                        firebaseFirestore.collection("users").document(firebaseUserId)
+                            .collection("Favorite")
+                            .document(anime.attributes.canonicalTitle).delete()
+                        binding.btnLike.setImageDrawable(drawTale)
+                    }
+
+                } else {
+                    if (!onclick) {
+
+                        binding.btnLike.setImageDrawable(drawTale)
+                    }else{
+                        val fav= Favorite(firebaseUserId,
+                            anime.attributes.posterImage.original,
+                            anime.attributes.canonicalTitle)
+                        firebaseFirestore.collection("users").document(firebaseUserId).collection("Favorite").document(anime.attributes.canonicalTitle)
+                            .set(fav)
+                            .addOnSuccessListener {
+                                Log.d("TAG", "DocumentSnapshot successfully written!")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w("TAG", "Error writing document", e)
+                            }
+
+                        binding.btnLike.setImageDrawable(drawRed)
+                    }
+
+                }
+
+            }
     }
 }

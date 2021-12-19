@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="10dp"
             android:layout_margin="16dp">
 
             <RelativeLayout
@@ -82,7 +82,7 @@
                             android:layout_width="104dp"
                             android:paddingLeft="40dp"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_baseline_favorite_24" />
+                             />
 
 
                     </LinearLayout>
