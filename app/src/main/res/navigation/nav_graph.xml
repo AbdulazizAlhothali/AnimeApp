@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_animeFragment_to_animeDetailsFragment"
             app:destination="@id/animeDetailsFragment" />
+        <action
+            android:id="@+id/action_animeFragment_to_itemListDialogFragment"
+            app:destination="@id/itemListDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -59,4 +62,9 @@
         android:id="@+id/favoriteFragment"
         android:name="com.example.animeapp.favorite.FavoriteFragment"
         android:label="FavoriteFragment" />
+    <dialog
+        android:id="@+id/itemListDialogFragment"
+        android:name="com.example.animeapp.ItemListDialogFragment"
+        android:label="fragment_item_list_dialog_list_dialog"
+        tools:layout="@layout/fragment_item_list_dialog_list_dialog" />
 </navigation>

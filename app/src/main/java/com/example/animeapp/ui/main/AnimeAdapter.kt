@@ -47,14 +47,16 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
 
     private val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
     private val firebaseFirestore = FirebaseFirestore.getInstance()
+    @SuppressLint("UseCompatLoadingForDrawables")
     private val drawRed = binding.root.resources.getDrawable(R.drawable.ic_baseline_favorite_24, binding.root.resources.newTheme())
+    @SuppressLint("UseCompatLoadingForDrawables")
     private val drawTale = binding.root.resources.getDrawable(R.drawable.ic_baseline_favorite_24, binding.root.resources.newTheme())
 
     fun bind(anime: Data){
 
         drawRed.setTint(binding.root.resources.getColor(R.color.red, binding.root.resources.newTheme()) )
         drawRed.setTintMode(PorterDuff.Mode.SRC_IN)
-        drawTale.setTint(binding.root.resources.getColor(R.color.teal_700, binding.root.resources.newTheme()) )
+        drawTale.setTint(binding.root.resources.getColor(R.color.white, binding.root.resources.newTheme()) )
         drawTale.setTintMode(PorterDuff.Mode.SRC_IN)
 
 
@@ -93,9 +95,8 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
             .addOnCompleteListener {
                 if (it.result.exists()){
                     if (!onclick){
-
                         binding.btnLike.setImageDrawable(drawRed)
-                    }else if (onclick) {
+                    }else {
                         firebaseFirestore.collection("users").document(firebaseUserId)
                             .collection("Favorite")
                             .document(anime.attributes.canonicalTitle).delete()

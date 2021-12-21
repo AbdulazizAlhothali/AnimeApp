@@ -37,6 +37,9 @@ android {
     dataBinding {
         enabled = true
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -76,6 +79,7 @@ dependencies {
 
     // WorkManager
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
 
     testImplementation 'junit:junit:'

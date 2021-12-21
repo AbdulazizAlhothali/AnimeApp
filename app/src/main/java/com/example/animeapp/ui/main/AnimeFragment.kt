@@ -38,12 +38,15 @@ class AnimeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //this.activity?.actionBar?.hide()
 
-        binding.rvAnime.layoutManager= GridLayoutManager(context,1)
+        binding.rvAnime.layoutManager= GridLayoutManager(context,2)
             //LinearLayoutManager(context,/*, LinearLayoutManager.HORIZONTAL, false*/)
         animeVm = ViewModelProvider(this)[AnimeViewModel::class.java]
         //animeVm.myNotification(MainActivity())
 
-        loadAnimeImages()
+        loadAnimeImages(
+
+
+        )
 
         check()
         //AnimeNotificationRepo().myNotification(MainActivity())

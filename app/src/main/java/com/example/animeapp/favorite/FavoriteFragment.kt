@@ -1,5 +1,6 @@
 package com.example.animeapp.favorite
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -64,6 +65,8 @@ class FavoriteFragment : Fragment() {
         val currentUser = auth.currentUser!!.uid
         db = FirebaseFirestore.getInstance()
         db.collection("users").document(currentUser).collection("Favorite").addSnapshotListener(object : EventListener<QuerySnapshot> {
+
+            @SuppressLint("NotifyDataSetChanged")
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
 
                 if (error != null) {
