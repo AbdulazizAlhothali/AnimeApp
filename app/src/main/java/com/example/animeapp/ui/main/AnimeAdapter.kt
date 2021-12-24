@@ -71,12 +71,15 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
         binding.tvRate.text= anime.attributes.averageRating.toString()
         val description = anime.attributes.description
         val ageRate = anime.attributes.ageRating
+        val animeEp= anime.attributes.episodeCount.toString()+"ep"
         binding.root.setOnClickListener {
+            /*val action= AnimeFragmentDirections.actionAnimeFragmentToItemListDialogFragment()
+            binding.root.findNavController().navigate(action)*/
             val detailsArg = Details(anime.attributes.canonicalTitle,
                 anime.attributes.posterImage.original,
             description,
                 anime.attributes.averageRating.toString(),
-            ageRate)
+            ageRate,animeEp)
             val action= AnimeFragmentDirections.actionAnimeFragmentToAnimeDetailsFragment(detailsArg)
             binding.root.findNavController().navigate(action)
         }

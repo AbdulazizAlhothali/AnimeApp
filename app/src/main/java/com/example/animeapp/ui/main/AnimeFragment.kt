@@ -36,17 +36,14 @@ class AnimeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //this.activity?.actionBar?.hide()
+
 
         binding.rvAnime.layoutManager= GridLayoutManager(context,2)
             //LinearLayoutManager(context,/*, LinearLayoutManager.HORIZONTAL, false*/)
         animeVm = ViewModelProvider(this)[AnimeViewModel::class.java]
         //animeVm.myNotification(MainActivity())
 
-        loadAnimeImages(
-
-
-        )
+        loadAnimeImages()
 
         check()
         //AnimeNotificationRepo().myNotification(MainActivity())
@@ -58,7 +55,6 @@ class AnimeFragment : Fragment() {
 
                 binding.btnPreviouse.isEnabled= true
             }
-
         }
 
             binding.btnPreviouse.setOnClickListener {
@@ -71,15 +67,7 @@ class AnimeFragment : Fragment() {
                     binding.btnPreviouse.isEnabled= false
                 }
 
-
             }
-
-
-
-
-
-
-
     }
 
     private fun check (){

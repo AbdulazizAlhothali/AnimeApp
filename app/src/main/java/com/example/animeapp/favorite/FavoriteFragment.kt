@@ -1,35 +1,26 @@
 package com.example.animeapp.favorite
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.app.Application
-import android.app.DatePickerDialog
-import android.icu.util.Calendar
+
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animeapp.data.firestore.Favorite
 import com.example.animeapp.databinding.FavoriteFragmentBinding
-import com.example.animeapp.ui.signin.SignInViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
-import java.text.SimpleDateFormat
+
 
 class FavoriteFragment : Fragment() {
 
     private lateinit var binding: FavoriteFragmentBinding
     private lateinit var favList: List<Favorite>
+
     private val viewModel by lazy {
-        ViewModelProvider(this).get(FavoriteViewModel::class.java)
+        ViewModelProvider(this)[FavoriteViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -42,6 +33,7 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
 
 
@@ -72,6 +64,7 @@ class FavoriteFragment : Fragment() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.layoutPosition
+
             val deletedFav = favList[position]
 
             when(direction){

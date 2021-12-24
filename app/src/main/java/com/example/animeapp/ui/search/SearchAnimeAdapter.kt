@@ -40,7 +40,7 @@ class CustomHolder(private val binding: SearchItemBinding): RecyclerView.ViewHol
         binding.tvRate.text= anime.attributes.averageRating.toString()
         val description = anime.attributes.description
         val ageRate = anime.attributes.ageRating
-
+        val animeEp= anime.attributes.episodeCount.toString()
         binding.root.setOnClickListener {
             Toast.makeText(binding.root.context,"you clicked ${binding.tvAnimeName.text}", Toast.LENGTH_LONG).show()
 
@@ -49,7 +49,7 @@ class CustomHolder(private val binding: SearchItemBinding): RecyclerView.ViewHol
                 anime.attributes.posterImage.original,
                 description,
                 anime.attributes.averageRating.toString(),
-                ageRate)
+                ageRate,animeEp)
             val action= SearchFragmentDirections.actionSearchFragmentToAnimeDetailsFragment(
                 detailsArg
             )

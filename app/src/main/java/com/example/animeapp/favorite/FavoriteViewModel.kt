@@ -1,6 +1,6 @@
 package com.example.animeapp.favorite
 
-import android.annotation.SuppressLint
+
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,9 +13,7 @@ class FavoriteViewModel : ViewModel() {
 
     private val favRepo= FavoriteRepo()
     fun showMyFavAnime(): LiveData<List<Favorite>> {
-
         val fav = MutableLiveData<List<Favorite>>()
-
         val favList: MutableList<Favorite> = mutableListOf()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser!!.uid

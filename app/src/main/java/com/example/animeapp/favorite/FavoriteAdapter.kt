@@ -13,7 +13,7 @@ import com.example.animeapp.databinding.FavoriteRecyclerviewItemBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FavoriteAdapter(val favAnime: List<Favorite>) : RecyclerView.Adapter<CustomHolder>() {
+class FavoriteAdapter(private val favAnime: List<Favorite>) : RecyclerView.Adapter<CustomHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
         val bind = DataBindingUtil.inflate<FavoriteRecyclerviewItemBinding>(

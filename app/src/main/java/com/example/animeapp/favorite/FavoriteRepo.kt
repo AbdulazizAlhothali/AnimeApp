@@ -8,8 +8,6 @@ import com.google.firebase.firestore.*
 class FavoriteRepo {
 
     fun showMyFavAnime(): List<Favorite> {
-
-        var fav: List<Favorite> = emptyList()
         val favList: MutableList<Favorite> = mutableListOf()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser!!.uid
@@ -28,11 +26,10 @@ class FavoriteRepo {
                         favList.add(dc.document.toObject(Favorite::class.java))
                     }
                 }
-                fav= favList
             }
 
         })
-        return fav
+        return favList
     }
 
     fun deleteRepo(favAnime: Favorite) {

@@ -1,5 +1,6 @@
 package com.example.animeapp.ui.animedetail
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -35,12 +36,23 @@ class AnimeDetailsFragment : Fragment() {
         val descArg= args.detailsArg.desc
         val rateAgeArg= args.detailsArg.ageRate
         val rateArg = args.detailsArg.rate
+        val epArg = args.detailsArg.episode
 
         binding.tvTitleDetails.text= titleArg
         binding.ivPosterDetails.load(posterArg)
         binding.tvDescription.text= descArg
         binding.tvRateDeails.text= rateArg
         binding.tvAgeRate.text= rateAgeArg
+        binding.tvEpisode.text= epArg
+        binding.ivShare.setOnClickListener {
+            val shareIntent = Intent()
+            shareIntent.action = Intent.ACTION_SEND
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "I'm recommending you to watch $titleArg")
+            shareIntent.type = "text/plain"
+
+
+            startActivity(shareIntent)
+        }
 
 
     }

@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="fitXY"
-            android:background="@drawable/naruto_cover"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -37,61 +36,87 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/constlayout"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintVertical_bias="0.987">
+
 
             <TextView
                 android:id="@+id/tvTitleDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
                 android:text="Naruto"
                 android:textColor="#030303"
                 android:textSize="33sp"
-                app:layout_constraintBottom_toTopOf="@+id/ivPosterDetails"
-                app:layout_constraintEnd_toStartOf="@+id/tvAgeRate"
+                android:layout_margin="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="NotSibling" />
-
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="31dp"
-                android:layout_height="29dp"
-                android:layout_marginStart="32dp"
-                android:src="@drawable/ic_baseline_star_24"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
 
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="363dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
                 android:text="Moments prior to Naruto Uzumaki's birth, a huge demon known as the Kyuubi, the Nine-Tailed Fox, attacked Konohagakure, the Hidden Leaf Village, and wreaked havoc. In order to put an end to the Kyuubi's rampage, the leader of the village, the Fourth Hokage, sacrificed his life and sealed the monstrous beast inside the newborn Naruto.
 Now, Naruto is a hyperactive and knuckle-headed ninja still living in Konohagakure. Shunned because of the Kyuubi inside him, Naruto struggles to find his place in the village, while his burning desire to become the Hokage of Konohagakure leads him not only to some great new friends, but also some deadly foes."
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAgeRate" />
+                app:layout_constraintTop_toBottomOf="@+id/tvEpisode"
+                app:layout_constraintVertical_bias="0.094" />
 
             <TextView
                 android:id="@+id/tvRateDeails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="48dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="4dp"
+                android:drawableStart="@drawable/ic_baseline_star_24"
                 android:text="99.9%"
-                app:layout_constraintEnd_toStartOf="@+id/tvTitleDetails"
-                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
 
             <TextView
                 android:id="@+id/tvAgeRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="16dp"
                 android:text="PG - Teens 13 or older"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
+
+            <TextView
+                android:id="@+id/tvEpisode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_live_tv_24"
+                android:text="100ep"
+                app:layout_constraintEnd_toStartOf="@+id/tvAgeRate"
+                app:layout_constraintStart_toEndOf="@+id/tvRateDeails"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
+
+            <ImageView
+                android:id="@+id/ivShare"
+                android:layout_width="37dp"
+                android:layout_height="33dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="64dp"
+                android:clickable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                app:srcCompat="@drawable/ic_baseline_share_24" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="52dp"
+                android:text="Recommend Friend To Watch:"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/ivShare"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
