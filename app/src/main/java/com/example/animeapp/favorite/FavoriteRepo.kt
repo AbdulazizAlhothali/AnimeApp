@@ -1,25 +1,18 @@
 package com.example.animeapp.favorite
 
-import android.annotation.SuppressLint
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.animeapp.data.firestore.Favorite
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
-class FavoriteViewModel : ViewModel() {
+class FavoriteRepo {
 
-    private val favRepo= FavoriteRepo()
-    fun showMyFavAnime(): LiveData<List<Favorite>> {
+    fun showMyFavAnime(): List<Favorite> {
 
-        val fav = MutableLiveData<List<Favorite>>()
-
+        var fav: List<Favorite> = emptyList()
         val favList: MutableList<Favorite> = mutableListOf()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser!!.uid
-        Log.d("CURRENTUSER",currentUser)
         val db = FirebaseFirestore.getInstance()
         db.collection("users").document(currentUser).collection("Favorite").addSnapshotListener(object :
             EventListener<QuerySnapshot> {
@@ -32,23 +25,22 @@ class FavoriteViewModel : ViewModel() {
                 }
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-                       favList.add(dc.document.toObject(Favorite::class.java))
+                        favList.add(dc.document.toObject(Favorite::class.java))
                     }
                 }
-                fav.value = favList
-
+                fav= favList
             }
 
         })
         return fav
     }
 
-    fun delete(favAnime: Favorite): LiveData<Unit> {
-        val int = MutableLiveData<Unit>()
-        int.postValue(favRepo.deleteRepo(favAnime))
-        return int
+    fun deleteRepo(favAnime: Favorite) {
 
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser!!.uid
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document(currentUser).collection("Favorite")
+            .document(favAnime.animeTitle).delete()
     }
-
-
 }

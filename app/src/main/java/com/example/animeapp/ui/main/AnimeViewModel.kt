@@ -23,7 +23,7 @@ class AnimeViewModel : ViewModel() {
         val animes = MutableLiveData<AnimeData>()
         viewModelScope.launch {
             try {
-                    animes.postValue(repo.allAnime(pageNum))
+                    val a = animes.postValue(repo.allAnime(pageNum))
             } catch (e: Throwable ){
                 Log.e("Anime", "Anime Problem : ${e.localizedMessage}")
             }

@@ -2,104 +2,94 @@ package com.example.animeapp.favorite
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.Application
+import android.app.DatePickerDialog
+import android.icu.util.Calendar
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.animeapp.data.firestore.Favorite
 import com.example.animeapp.databinding.FavoriteFragmentBinding
+import com.example.animeapp.ui.signin.SignInViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import java.text.SimpleDateFormat
 
 class FavoriteFragment : Fragment() {
 
     private lateinit var binding: FavoriteFragmentBinding
-
-    private lateinit var viewModel: FavoriteViewModel
-    private lateinit var favList: ArrayList<Favorite>
-    private lateinit var db: FirebaseFirestore
-    private lateinit var auth: FirebaseAuth
-    lateinit var favListAdapter: FavoriteAdapter
+    private lateinit var favList: List<Favorite>
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(FavoriteViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= FavoriteFragmentBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
-        favList= arrayListOf()
+
+
+
         binding.rvFavAnime.layoutManager = GridLayoutManager(context,1)
-        favListAdapter = FavoriteAdapter(favList)
-        binding.rvFavAnime.adapter= favListAdapter
-
-
-        showMyFavAnime()
-
-        binding.btnDelete.setOnClickListener{
+        viewModel.showMyFavAnime().observe(viewLifecycleOwner,{
+            binding.rvFavAnime.adapter= FavoriteAdapter(it)
+            favList = it
+        })
 
 
 
 
-            delete().notifyDataSetChanged()
-
-            //favListAdapter.notifyDataSetChanged()
-
-            /** Swap*/
 
 
+        val taskTouchHelper= ItemTouchHelper(simpleCallback)
+        taskTouchHelper.attachToRecyclerView(binding.rvFavAnime)
+    }
+
+    private var simpleCallback= object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)){
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return true
         }
 
-    }
-    private fun showMyFavAnime() {
 
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser!!.uid
-        db = FirebaseFirestore.getInstance()
-        db.collection("users").document(currentUser).collection("Favorite").addSnapshotListener(object : EventListener<QuerySnapshot> {
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.layoutPosition
+            val deletedFav = favList[position]
 
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+            when(direction){
+                ItemTouchHelper.LEFT -> {
+                    viewModel.delete(deletedFav).observe(viewLifecycleOwner,{
+                        viewModel.showMyFavAnime().observe(viewLifecycleOwner,{
+                            binding.rvFavAnime.adapter= FavoriteAdapter(it)
+                            favList= it
+                        })
+                    })
 
-                if (error != null) {
-                    Log.e("Firestore", error.message.toString())
-                    return
                 }
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        favList.add(dc.document.toObject(Favorite::class.java))
-                    }
+
+                ItemTouchHelper.RIGHT -> {
+                    TODO()
                 }
-                favListAdapter.notifyDataSetChanged()
             }
 
-        })
+        }
     }
-
-    private fun showChangeLanguage(type:String){
-        val mBuilder = AlertDialog.Builder(this.requireContext())
-        mBuilder.setTitle("Choose Language")
-        mBuilder.setMessage(type)
-        val mDialog =mBuilder.create()
-        mDialog.show()
-    }
-
-    private fun delete(): FavoriteAdapter {
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser!!.uid
-        db = FirebaseFirestore.getInstance()
-        db.collection("users").document(currentUser).collection("Favorite").document("Cowboy Bebop").delete()
-
-
-        return favListAdapter
-    }
-
 }

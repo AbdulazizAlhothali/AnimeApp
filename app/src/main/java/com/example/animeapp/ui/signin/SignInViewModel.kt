@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth
 
 class SignInViewModel : ViewModel() {
     private val auth = FirebaseAuth.getInstance()
-    //private var firebaseUserId: String = ""
     val email = MutableLiveData<String>()
     val pass = MutableLiveData<String>()
 
