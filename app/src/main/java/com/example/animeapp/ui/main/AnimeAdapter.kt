@@ -113,7 +113,7 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
                     }else{
                         val fav= Favorite(firebaseUserId,
                             anime.attributes.posterImage.original,
-                            anime.attributes.canonicalTitle,"Rate the Anime","0")
+                            anime.attributes.canonicalTitle,"0.0","0")
                         firebaseFirestore.collection("users").document(firebaseUserId).collection("Favorite").document(anime.attributes.canonicalTitle)
                             .set(fav)
                             .addOnSuccessListener {

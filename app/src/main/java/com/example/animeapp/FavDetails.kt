@@ -42,12 +42,10 @@ class FavDetails : BottomSheetDialogFragment() {
         binding.tvTitleDetails.text = args.animeTitle
         binding.tvEpNum.text = args.animeEp
         binding.rbRateFavAnime.rating = args.animeRate.toFloat()
-
         binding.ivNextEp.setOnClickListener {
             if (i >= 0){
                 i += 1
                 binding.tvEpNum.text = i.toString()
-
                 binding.ivPreviousEp.isEnabled= true
             }
         }
@@ -61,9 +59,7 @@ class FavDetails : BottomSheetDialogFragment() {
             if (i==0){
                 binding.ivPreviousEp.isEnabled= false
             }
-
         }
-
 
         binding.btnFavSave.setOnClickListener {
             val uId = FirebaseAuth.getInstance().currentUser?.uid
@@ -72,9 +68,7 @@ class FavDetails : BottomSheetDialogFragment() {
                 "rate", " "+binding.rbRateFavAnime.rating.toString())
             val action = FavDetailsDirections.actionFavDetailsToFavoriteFragment()
             findNavController().navigate(action)
-
         }
-
     }
 
     private fun check (){
