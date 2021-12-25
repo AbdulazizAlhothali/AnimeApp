@@ -12,9 +12,8 @@ import com.google.firebase.firestore.*
 class FavoriteViewModel : ViewModel() {
 
     private val favRepo= FavoriteRepo()
-    fun showMyFavAnime(): LiveData<List<Favorite>> {
-        val fav = MutableLiveData<List<Favorite>>()
-        val favList: MutableList<Favorite> = mutableListOf()
+    fun showMyFavAnime(favList: MutableList<Favorite>): LiveData<MutableList<Favorite>> {
+        val fav = MutableLiveData<MutableList<Favorite>>()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser!!.uid
         Log.d("CURRENTUSER",currentUser)
@@ -30,23 +29,16 @@ class FavoriteViewModel : ViewModel() {
                 }
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-                       favList.add(dc.document.toObject(Favorite::class.java))
+                        favList.add(dc.document.toObject(Favorite::class.java))
                     }
                 }
                 fav.value = favList
-
             }
-
         })
         return fav
     }
 
-    fun delete(favAnime: Favorite): LiveData<Unit> {
-        val int = MutableLiveData<Unit>()
-        int.postValue(favRepo.deleteRepo(favAnime))
-        return int
-
+    fun delete(favAnime: Favorite) {
+        favRepo.deleteRepo(favAnime)
     }
-
-
 }

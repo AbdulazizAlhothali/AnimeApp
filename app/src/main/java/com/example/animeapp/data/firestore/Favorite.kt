@@ -4,4 +4,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Favorite( var id: String = "", var posterImage: String = "", var animeTitle: String = "" ): Parcelable
+data class Favorite( var id: String = "", var posterImage: String = "", var animeTitle: String = "", var rate : String="", var episode:String ="" ): Parcelable

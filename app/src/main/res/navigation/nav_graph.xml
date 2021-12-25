@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/animeFragment">
+    app:startDestination="@id/favoriteFragment">
 
     <fragment
         android:id="@+id/animeFragment"
@@ -12,9 +12,6 @@
         <action
             android:id="@+id/action_animeFragment_to_animeDetailsFragment"
             app:destination="@id/animeDetailsFragment" />
-        <action
-            android:id="@+id/action_animeFragment_to_itemListDialogFragment"
-            app:destination="@id/itemListDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -61,10 +58,27 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.animeapp.favorite.FavoriteFragment"
-        android:label="FavoriteFragment" />
+        android:label="FavoriteFragment" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_favDetails"
+            app:destination="@id/favDetails" />
+    </fragment>
     <dialog
-        android:id="@+id/itemListDialogFragment"
-        android:name="com.example.animeapp.ItemListDialogFragment"
+        android:id="@+id/favDetails"
+        android:name="com.example.animeapp.FavDetails"
         android:label="fragment_item_list_dialog_list_dialog"
-        tools:layout="@layout/fragment_item_list_dialog_list_dialog" />
+        tools:layout="@layout/fav_details" >
+        <action
+            android:id="@+id/action_favDetails_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <argument
+            android:name="animeTitle"
+            app:argType="string" />
+        <argument
+            android:name="animeRate"
+            app:argType="string" />
+        <argument
+            android:name="animeEp"
+            app:argType="string" />
+    </dialog>
 </navigation>

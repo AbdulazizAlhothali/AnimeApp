@@ -17,7 +17,7 @@ import com.example.animeapp.databinding.FavoriteFragmentBinding
 class FavoriteFragment : Fragment() {
 
     private lateinit var binding: FavoriteFragmentBinding
-    private lateinit var favList: List<Favorite>
+    private lateinit var favList: MutableList<Favorite>
 
     private val viewModel by lazy {
         ViewModelProvider(this)[FavoriteViewModel::class.java]
@@ -33,20 +33,12 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
-
+        favList = mutableListOf()
         binding.rvFavAnime.layoutManager = GridLayoutManager(context,1)
-        viewModel.showMyFavAnime().observe(viewLifecycleOwner,{
-            binding.rvFavAnime.adapter= FavoriteAdapter(it)
-            favList = it
+        viewModel.showMyFavAnime(favList).observe(viewLifecycleOwner,{
+            binding.rvFavAnime.adapter= FavoriteAdapter(favList)
+
         })
-
-
-
-
-
 
         val taskTouchHelper= ItemTouchHelper(simpleCallback)
         taskTouchHelper.attachToRecyclerView(binding.rvFavAnime)
@@ -69,17 +61,16 @@ class FavoriteFragment : Fragment() {
 
             when(direction){
                 ItemTouchHelper.LEFT -> {
-                    viewModel.delete(deletedFav).observe(viewLifecycleOwner,{
-                        viewModel.showMyFavAnime().observe(viewLifecycleOwner,{
-                            binding.rvFavAnime.adapter= FavoriteAdapter(it)
-                            favList= it
-                        })
-                    })
+                    viewModel.delete(deletedFav)
+                    favList.remove(deletedFav)
+                    FavoriteAdapter(favList).notifyItemRemoved(position)
 
                 }
 
                 ItemTouchHelper.RIGHT -> {
-                    TODO()
+                    viewModel.delete(deletedFav)
+                    favList.remove(deletedFav)
+                    FavoriteAdapter(favList).notifyItemRemoved(position)
                 }
             }
 

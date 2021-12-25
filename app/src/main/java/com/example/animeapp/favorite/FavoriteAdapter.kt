@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.animeapp.R
@@ -39,8 +40,12 @@ class CustomHolder(private val binding: FavoriteRecyclerviewItemBinding): Recycl
 
         binding.ivAnimePoster.load(anime.posterImage)
         binding.tvAnimeName.text = anime.animeTitle
-        binding.tvRate.text = anime.id
+        binding.tvRate.text = anime.rate
+        binding.tvEp.text = anime.episode
 
-
+        binding.root.setOnClickListener {
+            val action= FavoriteFragmentDirections.actionFavoriteFragmentToFavDetails(anime.animeTitle,anime.rate,anime.episode)
+            binding.root.findNavController().navigate(action)
+        }
     }
 }
