@@ -5,14 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.animeapp.R
-import com.example.animeapp.databinding.AnimeFragmentBinding
 import com.example.animeapp.databinding.SearchFragmentBinding
-import com.example.animeapp.ui.main.AnimeAdapter
-import com.example.animeapp.ui.main.AnimeViewModel
 
 class SearchFragment : Fragment() {
 
@@ -22,24 +18,16 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= SearchFragmentBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //this.activity?.actionBar?.hide()
-
         setHasOptionsMenu(true)
-
         binding.rvSearchAnime.layoutManager= LinearLayoutManager(context/*, LinearLayoutManager.HORIZONTAL, false*/)
         searchVm = ViewModelProvider(this)[SearchViewModel::class.java]
-
-
-
-
-
     }
 
     private fun loadAnimeImages(searchKeyword: String){
@@ -58,20 +46,15 @@ class SearchFragment : Fragment() {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String): Boolean {
                     Log.d(TAG, "QueryTextSubmit: $query")
-
                     loadAnimeImages(query.trim())
                     return true
                 }
-
                 override fun onQueryTextChange(newText: String?): Boolean {
                     Log.d(TAG, "QueryTextSubmit: $newText")
                     return false
                 }
-
-
             })
         }
         return super.onCreateOptionsMenu(menu, inflater)
     }
-
 }

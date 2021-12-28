@@ -28,7 +28,7 @@ class SignInViewModel : ViewModel() {
                     if (task.isSuccessful) {
                         Log.e("***********LOG IN", "*******SUCCEED")
                         val action =
-                            SignInFragmentDirections.actionSignInFragmentToAnimeFragment()
+                            SignInFragmentDirections.actionSignInFragmentToMainFragment()
                         _navigateScreen.value = Event(action)
 
                     } else {

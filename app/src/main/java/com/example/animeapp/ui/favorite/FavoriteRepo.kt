@@ -1,22 +1,16 @@
-package com.example.animeapp.favorite
-
+package com.example.animeapp.ui.favorite
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.animeapp.data.firestore.Favorite
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
-class FavoriteViewModel : ViewModel() {
+class FavoriteRepo {
 
-    private val favRepo= FavoriteRepo()
-    fun showMyFavAnime(favList: MutableList<Favorite>): LiveData<MutableList<Favorite>> {
-        val fav = MutableLiveData<MutableList<Favorite>>()
+    fun showMyFavAnime(): List<Favorite> {
+        val favList: MutableList<Favorite> = mutableListOf()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser!!.uid
-        Log.d("CURRENTUSER",currentUser)
         val db = FirebaseFirestore.getInstance()
         db.collection("users").document(currentUser).collection("Favorite").addSnapshotListener(object :
             EventListener<QuerySnapshot> {
@@ -32,13 +26,18 @@ class FavoriteViewModel : ViewModel() {
                         favList.add(dc.document.toObject(Favorite::class.java))
                     }
                 }
-                fav.value = favList
             }
+
         })
-        return fav
+        return favList
     }
 
-    fun delete(favAnime: Favorite) {
-        favRepo.deleteRepo(favAnime)
+    fun deleteRepo(favAnime: Favorite) {
+
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser!!.uid
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document(currentUser).collection("Favorite")
+            .document(favAnime.animeTitle).delete()
     }
 }

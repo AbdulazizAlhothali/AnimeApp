@@ -1,17 +1,13 @@
-package com.example.animeapp
+package com.example.animeapp.ui.favorite
 
 import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.animeapp.databinding.FavDetailsBinding
-import com.example.animeapp.ui.animedetail.AnimeDetailsFragmentArgs
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

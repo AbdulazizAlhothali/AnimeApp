@@ -1,18 +1,14 @@
-package com.example.animeapp.favorite
+package com.example.animeapp.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.animeapp.R
 import com.example.animeapp.data.firestore.Favorite
 import com.example.animeapp.databinding.FavoriteRecyclerviewItemBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class FavoriteAdapter(private val favAnime: List<Favorite>) : RecyclerView.Adapter<CustomHolder>() {
 

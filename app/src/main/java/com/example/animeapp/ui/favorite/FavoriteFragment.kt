@@ -1,6 +1,8 @@
-package com.example.animeapp.favorite
+package com.example.animeapp.ui.favorite
 
 
+
+import android.graphics.Canvas
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animeapp.data.firestore.Favorite
 import com.example.animeapp.databinding.FavoriteFragmentBinding
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import com.example.animeapp.R
 
 
 class FavoriteFragment : Fragment() {
@@ -45,30 +49,30 @@ class FavoriteFragment : Fragment() {
     }
 
     private var simpleCallback= object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT){
-        override fun onMove(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            target: RecyclerView.ViewHolder
-        ): Boolean {
-            return true
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            return false
         }
-
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.layoutPosition
-
             val deletedFav = favList[position]
-
             when(direction){
                 ItemTouchHelper.LEFT -> {
                     viewModel.delete(deletedFav)
                     favList.remove(deletedFav)
                     FavoriteAdapter(favList).notifyItemRemoved(position)
-
                 }
-
             }
 
+        }
+
+        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+            RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                .addSwipeLeftBackgroundColor(binding.root.resources.getColor(R.color.red,binding.root.resources.newTheme()))
+                .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
+                .create()
+                .decorate()
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
     }
 }
