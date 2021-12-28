@@ -44,7 +44,7 @@ class FavoriteFragment : Fragment() {
         taskTouchHelper.attachToRecyclerView(binding.rvFavAnime)
     }
 
-    private var simpleCallback= object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)){
+    private var simpleCallback= object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT){
         override fun onMove(
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder,
@@ -67,11 +67,6 @@ class FavoriteFragment : Fragment() {
 
                 }
 
-                ItemTouchHelper.RIGHT -> {
-                    viewModel.delete(deletedFav)
-                    favList.remove(deletedFav)
-                    FavoriteAdapter(favList).notifyItemRemoved(position)
-                }
             }
 
         }

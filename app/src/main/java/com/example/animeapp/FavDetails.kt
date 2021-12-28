@@ -21,7 +21,7 @@ class FavDetails : BottomSheetDialogFragment() {
 
     private lateinit var binding: FavDetailsBinding
     val args: FavDetailsArgs by navArgs()
-    private var i = 0
+
 
 
 
@@ -37,7 +37,15 @@ class FavDetails : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        check()
+        //check()
+        var a = args.animeEp.removePrefix(" ")
+        var i = a.toInt()
+
+        if (i<1){
+            binding.ivPreviousEp.isEnabled= false
+        } else if (i>=1){
+            binding.ivPreviousEp.isEnabled= true
+        }
 
         binding.tvTitleDetails.text = args.animeTitle
         binding.tvEpNum.text = args.animeEp
@@ -51,7 +59,12 @@ class FavDetails : BottomSheetDialogFragment() {
         }
 
         binding.ivPreviousEp.setOnClickListener {
-            check()
+            //check()
+            if (i<1){
+                binding.ivPreviousEp.isEnabled= false
+            } else if (i>=1){
+                binding.ivPreviousEp.isEnabled= true
+            }
             if (i>=1){
                 i-=1
                 binding.tvEpNum.text = i.toString()
@@ -72,11 +85,7 @@ class FavDetails : BottomSheetDialogFragment() {
     }
 
     private fun check (){
-        if (i<1){
-            binding.ivPreviousEp.isEnabled= false
-        } else if (i>=1){
-            binding.ivPreviousEp.isEnabled= true
-        }
+
     }
 
 }

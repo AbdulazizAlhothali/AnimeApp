@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/favoriteFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/animeFragment"
@@ -81,4 +81,20 @@
             android:name="animeEp"
             app:argType="string" />
     </dialog>
+    <fragment
+        android:id="@+id/trendingAnimeFragment"
+        android:name="com.example.animeapp.ui.main.TrendingAnimeFragment"
+        android:label="TrendingAnimeFragment" >
+        <action
+            android:id="@+id/action_trendingAnimeFragment_to_animeDetailsFragment"
+            app:destination="@id/animeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.animeapp.ui.main.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_animeDetailsFragment"
+            app:destination="@id/animeDetailsFragment" />
+    </fragment>
 </navigation>

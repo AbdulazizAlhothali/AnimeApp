@@ -49,8 +49,6 @@ class AnimeDetailsFragment : Fragment() {
             shareIntent.action = Intent.ACTION_SEND
             shareIntent.putExtra(Intent.EXTRA_TEXT, "I'm recommending you to watch $titleArg")
             shareIntent.type = "text/plain"
-
-
             startActivity(shareIntent)
         }
 

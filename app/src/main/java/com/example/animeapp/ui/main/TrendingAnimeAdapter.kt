@@ -1,14 +1,10 @@
 package com.example.animeapp.ui.main
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Color
 import android.graphics.PorterDuff
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -17,21 +13,19 @@ import com.example.animeapp.R
 import com.example.animeapp.data.Data
 import com.example.animeapp.data.Details
 import com.example.animeapp.data.firestore.Favorite
-
 import com.example.animeapp.databinding.RecyclerViewItemBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
-import java.util.*
-import kotlin.concurrent.schedule
+import com.google.firebase.firestore.FirebaseFirestore
 
-class AnimeAdapter(private val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
-        val bind = DataBindingUtil.inflate<RecyclerViewItemBinding>(LayoutInflater.from(parent.context),
+class TrendingAnimeAdapter(private val top: List<Data>) : RecyclerView.Adapter<CustomHolder1>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder1 {
+        val bind = DataBindingUtil.inflate<RecyclerViewItemBinding>(
+            LayoutInflater.from(parent.context),
             R.layout.recycler_view_item,parent,false)
-        return CustomHolder(bind)
+        return CustomHolder1(bind)
     }
 
-    override fun onBindViewHolder(holder: CustomHolder, position: Int) {
+    override fun onBindViewHolder(holder: CustomHolder1, position: Int) {
         val anime = top[position]
 
         holder.bind(anime)
@@ -43,7 +37,7 @@ class AnimeAdapter(private val top: List<Data>) : RecyclerView.Adapter<CustomHol
     }
 
 }
-class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.ViewHolder(binding.root){
+class CustomHolder1(private val binding: RecyclerViewItemBinding): RecyclerView.ViewHolder(binding.root){
 
     private val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
     private val firebaseFirestore = FirebaseFirestore.getInstance()
@@ -76,9 +70,9 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
 
             val detailsArg = Details(anime.attributes.canonicalTitle,
                 anime.attributes.posterImage.original,
-            description,
+                description,
                 anime.attributes.averageRating.toString(),
-            ageRate,animeEp)
+                ageRate,animeEp)
             val action= MainFragmentDirections.actionMainFragmentToAnimeDetailsFragment(detailsArg)
             binding.root.findNavController().navigate(action)
         }

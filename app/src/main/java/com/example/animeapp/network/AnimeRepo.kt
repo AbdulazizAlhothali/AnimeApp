@@ -13,5 +13,8 @@ class AnimeRepo {
     suspend fun searchAnime(searchKeyword: String): AnimeData = withContext(Dispatchers.IO) {
         api.searchAnime(searchKeyword)
     }
+    suspend fun trendingAnime (): AnimeData = withContext(Dispatchers.IO){
+        api.trendingAnime()
+    }
 
 }
