@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.animeapp.databinding.SignUpFragmentBinding
@@ -17,13 +16,13 @@ class SignUpFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var binding: SignUpFragmentBinding
     private val signUpVM by lazy {
-        ViewModelProvider(this).get(SignUpViewModel::class.java)
+        ViewModelProvider(this)[SignUpViewModel::class.java]
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= SignUpFragmentBinding.inflate(inflater,container, false)
         return binding.root
     }
@@ -34,14 +33,14 @@ class SignUpFragment : Fragment() {
         binding.lifecycleOwner= this
         binding.signUpViewModel= signUpVM
         navController = Navigation.findNavController(view)
-        signUpVM.navigateScreen.observe(requireActivity(), Observer {
+        signUpVM.navigateScreen.observe(viewLifecycleOwner,{
           it.getContentIfNotHandled()?.let { action->
               navController.navigate(action)
           }
         })
-        signUpVM.message.observe(requireActivity(), Observer {
-            it.getContentIfNotHandled()?.let {
-                Toast.makeText(requireContext(),it, Toast.LENGTH_SHORT).show()
+        signUpVM.message.observe(viewLifecycleOwner,{
+            it.getContentIfNotHandled()?.let { message->
+                Toast.makeText(requireContext(),message, Toast.LENGTH_SHORT).show()
             }
         })
     }

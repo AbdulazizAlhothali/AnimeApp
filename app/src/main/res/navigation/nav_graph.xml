@@ -3,23 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signUpFragment">
+    app:startDestination="@id/mainFragment">
 
-    <fragment
-        android:id="@+id/animeFragment"
-        android:name="com.example.animeapp.ui.main.AnimeFragment"
-        android:label="anime_fragment">
-        <action
-            android:id="@+id/action_animeFragment_to_animeDetailsFragment"
-            app:destination="@id/animeDetailsFragment" />
-    </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.animeapp.ui.signup.SignUpFragment"
         android:label="SignUpFragment" >
-        <action
-            android:id="@+id/action_signUpFragment_to_animeFragment"
-            app:destination="@id/animeFragment" />
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
@@ -35,9 +24,6 @@
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
         <action
-            android:id="@+id/action_signInFragment_to_animeFragment"
-            app:destination="@id/animeFragment" />
-        <action
             android:id="@+id/action_signInFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
@@ -46,9 +32,6 @@
         android:name="com.example.animeapp.ui.animedetail.AnimeDetailsFragment"
         android:label="anime_details_fragment"
         tools:layout="@layout/anime_details_fragment" >
-        <action
-            android:id="@+id/action_animeDetailsFragment_to_animeFragment"
-            app:destination="@id/animeFragment" />
         <argument
             android:name="detailsArg"
             app:argType="com.example.animeapp.data.Details" />
@@ -88,14 +71,6 @@
             app:argType="string" />
     </dialog>
     <fragment
-        android:id="@+id/trendingAnimeFragment"
-        android:name="com.example.animeapp.ui.main.TrendingAnimeFragment"
-        android:label="TrendingAnimeFragment" >
-        <action
-            android:id="@+id/action_trendingAnimeFragment_to_animeDetailsFragment"
-            app:destination="@id/animeDetailsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.animeapp.ui.main.MainFragment"
         android:label="MainFragment" >
@@ -103,4 +78,8 @@
             android:id="@+id/action_mainFragment_to_animeDetailsFragment"
             app:destination="@id/animeDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.animeapp.ui.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

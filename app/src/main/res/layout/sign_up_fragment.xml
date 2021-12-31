@@ -172,6 +172,7 @@
                 android:layout_marginTop="24dp"
                 android:clickable="true"
                 android:text="Sign in"
+                android:onClick="@{()-> signUpViewModel.goToSignIn()}"
                 android:textColor="#2196F3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.066"

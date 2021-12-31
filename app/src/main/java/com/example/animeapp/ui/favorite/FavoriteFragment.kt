@@ -22,8 +22,8 @@ class FavoriteFragment : Fragment() {
 
     private lateinit var binding: FavoriteFragmentBinding
     private lateinit var favList: MutableList<Favorite>
-
-    private val viewModel by lazy {
+    lateinit var favAdapter : FavoriteAdapter
+    private val favVM by lazy {
         ViewModelProvider(this)[FavoriteViewModel::class.java]
     }
 
@@ -38,10 +38,11 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         favList = mutableListOf()
+        favAdapter = FavoriteAdapter(favList)
         binding.rvFavAnime.layoutManager = GridLayoutManager(context,1)
-        viewModel.showMyFavAnime(favList).observe(viewLifecycleOwner,{
+        favVM.showMyFavAnime(favList,viewLifecycleOwner).observe(viewLifecycleOwner,{
             binding.rvFavAnime.adapter= FavoriteAdapter(favList)
-
+            favAdapter.notifyDataSetChanged()
         })
 
         val taskTouchHelper= ItemTouchHelper(simpleCallback)
@@ -50,7 +51,7 @@ class FavoriteFragment : Fragment() {
 
     private var simpleCallback= object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT){
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-            return false
+            return true
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -58,12 +59,11 @@ class FavoriteFragment : Fragment() {
             val deletedFav = favList[position]
             when(direction){
                 ItemTouchHelper.LEFT -> {
-                    viewModel.delete(deletedFav)
+                    favVM.delete(deletedFav)
                     favList.remove(deletedFav)
-                    FavoriteAdapter(favList).notifyItemRemoved(position)
+                    favAdapter.notifyItemRemoved(position)
                 }
             }
-
         }
 
         override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {

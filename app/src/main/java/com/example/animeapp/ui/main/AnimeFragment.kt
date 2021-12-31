@@ -19,6 +19,7 @@ import com.example.animeapp.data.Links
 import com.example.animeapp.databinding.AnimeFragmentBinding
 import com.example.animeapp.notification.AnimeNotificationRepo
 import com.example.animeapp.notification.NotificationHelper
+import com.example.animeapp.ui.favorite.FavoriteRepo
 
 class AnimeFragment : Fragment() {
 
@@ -38,13 +39,13 @@ class AnimeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+
         binding.rvAnime.layoutManager= GridLayoutManager(context,2)
             //LinearLayoutManager(context,/*, LinearLayoutManager.HORIZONTAL, false*/)
         animeVm = ViewModelProvider(this)[AnimeViewModel::class.java]
         //animeVm.myNotification(MainActivity())
 
         loadAnimeImages()
-
         check()
         //AnimeNotificationRepo().myNotification(MainActivity())
 

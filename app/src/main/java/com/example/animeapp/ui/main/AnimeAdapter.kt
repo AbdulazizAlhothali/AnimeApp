@@ -1,14 +1,10 @@
 package com.example.animeapp.ui.main
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Color
 import android.graphics.PorterDuff
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +13,9 @@ import com.example.animeapp.R
 import com.example.animeapp.data.Data
 import com.example.animeapp.data.Details
 import com.example.animeapp.data.firestore.Favorite
-
 import com.example.animeapp.databinding.RecyclerViewItemBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import java.util.*
-import kotlin.concurrent.schedule
 
 class AnimeAdapter(private val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
@@ -53,18 +46,14 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
     private val drawTale = binding.root.resources.getDrawable(R.drawable.ic_baseline_favorite_24, binding.root.resources.newTheme())
 
     fun bind(anime: Data){
-
         drawRed.setTint(binding.root.resources.getColor(R.color.red, binding.root.resources.newTheme()) )
         drawRed.setTintMode(PorterDuff.Mode.SRC_IN)
-        drawTale.setTint(binding.root.resources.getColor(R.color.white, binding.root.resources.newTheme()) )
+        drawTale.setTint(binding.root.resources.getColor(R.color.purple_200, binding.root.resources.newTheme()))
         drawTale.setTintMode(PorterDuff.Mode.SRC_IN)
-
-
         binding.btnLike.setImageDrawable(drawTale)
         binding.btnLike.setOnClickListener {
             check(true,anime)
         }
-
         check(false,anime)
         binding.ivAnimePoster.load(anime.attributes.posterImage.large)
         binding.tvAnimeName.text = anime.attributes.canonicalTitle
@@ -73,7 +62,6 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
         val ageRate = anime.attributes.ageRating
         val animeEp= anime.attributes.episodeCount.toString()+"ep"
         binding.root.setOnClickListener {
-
             val detailsArg = Details(anime.attributes.canonicalTitle,
                 anime.attributes.posterImage.original,
             description,
@@ -82,10 +70,6 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
             val action= MainFragmentDirections.actionMainFragmentToAnimeDetailsFragment(detailsArg)
             binding.root.findNavController().navigate(action)
         }
-
-
-
-
     }
 
     private fun check(onclick: Boolean, anime: Data){
@@ -104,10 +88,8 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
                             .document(anime.attributes.canonicalTitle).delete()
                         binding.btnLike.setImageDrawable(drawTale)
                     }
-
                 } else {
                     if (!onclick) {
-
                         binding.btnLike.setImageDrawable(drawTale)
                     }else{
                         val fav= Favorite(firebaseUserId,
@@ -121,12 +103,9 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
                             .addOnFailureListener { e ->
                                 Log.w("TAG", "Error writing document", e)
                             }
-
                         binding.btnLike.setImageDrawable(drawRed)
                     }
-
                 }
-
             }
     }
 }

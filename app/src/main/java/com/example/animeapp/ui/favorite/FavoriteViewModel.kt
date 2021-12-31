@@ -1,24 +1,26 @@
 package com.example.animeapp.ui.favorite
 
 
-import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.animeapp.data.firestore.Favorite
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
 
 class FavoriteViewModel : ViewModel() {
 
     private val favRepo= FavoriteRepo()
-    fun showMyFavAnime(favList: MutableList<Favorite>): LiveData<MutableList<Favorite>> {
+    fun showMyFavAnime(newList:MutableList<Favorite>, viewLifecycleOwner: LifecycleOwner): LiveData<MutableList<Favorite>> {
         val fav = MutableLiveData<MutableList<Favorite>>()
-        val auth = FirebaseAuth.getInstance()
+        favRepo.showMyFavAnime(newList).observe(viewLifecycleOwner,{
+            fav.postValue(it)
+        })
+
+        /*val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser!!.uid
         Log.d("CURRENTUSER",currentUser)
         val db = FirebaseFirestore.getInstance()
-        db.collection("users").document(currentUser).collection("Favorite").addSnapshotListener(object :
+        db.collection("users").document(currentUser).collection("Favorite").addSnapshotListener(object:
             EventListener<QuerySnapshot> {
 
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -34,7 +36,7 @@ class FavoriteViewModel : ViewModel() {
                 }
                 fav.value = favList
             }
-        })
+        })*/
         return fav
     }
 

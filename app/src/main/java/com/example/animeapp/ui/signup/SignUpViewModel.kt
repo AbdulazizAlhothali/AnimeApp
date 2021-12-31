@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import com.example.animeapp.data.firestore.User
 import com.example.animeapp.event.Event
+import com.example.animeapp.ui.signin.SignInFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -65,6 +66,11 @@ class SignUpViewModel : ViewModel() {
 
             }
         }
+    }
+
+    fun goToSignIn(){
+        val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
+        _navigateScreen.value = Event(action)
     }
 
     private fun checkEmpty(arrOfEditText: ArrayList<String?>): Boolean {

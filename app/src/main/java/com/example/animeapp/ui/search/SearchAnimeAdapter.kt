@@ -11,7 +11,6 @@ import com.example.animeapp.R
 import com.example.animeapp.data.Data
 import com.example.animeapp.data.Details
 import com.example.animeapp.databinding.SearchItemBinding
-import com.example.animeapp.ui.main.AnimeFragmentDirections
 
 class SearchAnimeAdapter(val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
