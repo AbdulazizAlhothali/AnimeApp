@@ -12,6 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import com.example.animeapp.MainActivity
 import com.example.animeapp.R
 import com.example.animeapp.databinding.SettingsFragmentBinding
@@ -48,6 +51,14 @@ class SettingsFragment : Fragment() {
 
         }
 
+        binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
+            }
+        }
+
 
     }
 
@@ -62,21 +73,21 @@ class SettingsFragment : Fragment() {
 
         val btnChangeLanguage = view.btnChangeLanguage
 
-        var radioGroup = view.radioGroup
+        val radioGroup = view.radioGroup
 
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            var selectedLanguage:RadioButton=view.findViewById(checkedId)
-            if (selectedLanguage != null) btnChangeLanguage.setOnClickListener {
+            val selectedLanguage:RadioButton=view.findViewById(checkedId)
+            btnChangeLanguage.setOnClickListener {
 
-                Log.e("language","${selectedLanguage.text.toString()}")
+                Log.e("language", selectedLanguage.text.toString())
 
 
                 if (selectedLanguage.text.toString()=="Arabic"){
 
-                    setLocaleFeather("ar")
+                    setLocaleLang("ar")
 
                 }else if (selectedLanguage.text.toString()=="English"){
-                    setLocaleFeather("en")
+                    setLocaleLang("en")
 
                 }
             }
@@ -109,9 +120,9 @@ class SettingsFragment : Fragment() {
 
 
     //------------------------------------------------------------------
-    private fun setLocaleFeather(localeName: String) {
+    private fun setLocaleLang(localeName: String) {
 
-        val locale = Locale(localeName.toString())
+        val locale = Locale(localeName)
         Locale.setDefault(locale)
         val config = Configuration()
         config.locale = locale

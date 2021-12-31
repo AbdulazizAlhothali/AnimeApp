@@ -48,15 +48,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.539"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/switch1" />
+                app:layout_constraintTop_toBottomOf="@+id/switchDarkMode" />
 
             <Switch
-                android:id="@+id/switch1"
+                android:id="@+id/switchDarkMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="128dp"
                 android:text="DarkMode"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/tvChangeLanguage"
                 tools:layout_editor_absoluteX="146dp"
                 tools:ignore="MissingConstraints,UseSwitchCompatOrMaterialXml" />
         </androidx.constraintlayout.widget.ConstraintLayout>
