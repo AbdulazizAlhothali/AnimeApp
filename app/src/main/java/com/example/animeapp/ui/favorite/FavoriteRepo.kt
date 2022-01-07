@@ -17,7 +17,6 @@ class FavoriteRepo {
         val db = FirebaseFirestore.getInstance()
         db.collection("users").document(currentUser).collection("Favorite").addSnapshotListener(object :
             EventListener<QuerySnapshot> {
-
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 if (error != null) {
                     Log.e("Firestore", error.message.toString())
@@ -35,7 +34,6 @@ class FavoriteRepo {
     }
 
     fun deleteRepo(favAnime: Favorite) {
-
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser!!.uid
         val db = FirebaseFirestore.getInstance()

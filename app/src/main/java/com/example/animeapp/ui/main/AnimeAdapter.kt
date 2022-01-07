@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -14,14 +15,16 @@ import com.example.animeapp.data.Data
 import com.example.animeapp.data.Details
 import com.example.animeapp.data.firestore.Favorite
 import com.example.animeapp.databinding.RecyclerViewItemBinding
+import com.example.animeapp.ui.search.SearchFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
-class AnimeAdapter(private val top: List<Data>) : RecyclerView.Adapter<CustomHolder>() {
+class AnimeAdapter(private val top: List<Data>,private val caller: String) : RecyclerView.Adapter<CustomHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
         val bind = DataBindingUtil.inflate<RecyclerViewItemBinding>(LayoutInflater.from(parent.context),
             R.layout.recycler_view_item,parent,false)
-        return CustomHolder(bind)
+        return CustomHolder(bind,caller)
     }
 
     override fun onBindViewHolder(holder: CustomHolder, position: Int) {
@@ -36,7 +39,7 @@ class AnimeAdapter(private val top: List<Data>) : RecyclerView.Adapter<CustomHol
     }
 
 }
-class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.ViewHolder(binding.root){
+class CustomHolder(private val binding: RecyclerViewItemBinding, private val caller: String): RecyclerView.ViewHolder(binding.root){
 
     private val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
     private val firebaseFirestore = FirebaseFirestore.getInstance()
@@ -44,7 +47,7 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
     private val drawRed = binding.root.resources.getDrawable(R.drawable.ic_baseline_favorite_24, binding.root.resources.newTheme())
     @SuppressLint("UseCompatLoadingForDrawables")
     private val drawTale = binding.root.resources.getDrawable(R.drawable.ic_baseline_favorite_24, binding.root.resources.newTheme())
-
+    lateinit var action: NavDirections
     fun bind(anime: Data){
         drawRed.setTint(binding.root.resources.getColor(R.color.red, binding.root.resources.newTheme()) )
         drawRed.setTintMode(PorterDuff.Mode.SRC_IN)
@@ -67,7 +70,10 @@ class CustomHolder(private val binding: RecyclerViewItemBinding): RecyclerView.V
             description,
                 anime.attributes.averageRating.toString(),
             ageRate,animeEp)
-            val action= MainFragmentDirections.actionMainFragmentToAnimeDetailsFragment(detailsArg)
+            when(caller){
+                "AnimeFragment" -> action = MainFragmentDirections.actionMainFragmentToAnimeDetailsFragment(detailsArg)
+                "SearchFragment" -> action = SearchFragmentDirections.actionSearchFragmentToAnimeDetailsFragment(detailsArg)
+            }
             binding.root.findNavController().navigate(action)
         }
     }

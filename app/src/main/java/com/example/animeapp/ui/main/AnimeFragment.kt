@@ -1,25 +1,16 @@
 package com.example.animeapp.ui.main
 
-import android.opengl.Visibility
+
 import android.os.Bundle
-import android.util.LayoutDirection
+
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.animeapp.MainActivity
-import com.example.animeapp.R
-import com.example.animeapp.data.Links
 import com.example.animeapp.databinding.AnimeFragmentBinding
-import com.example.animeapp.notification.AnimeNotificationRepo
-import com.example.animeapp.notification.NotificationHelper
-import com.example.animeapp.ui.favorite.FavoriteRepo
 
 class AnimeFragment : Fragment() {
 
@@ -41,13 +32,11 @@ class AnimeFragment : Fragment() {
 
 
         binding.rvAnime.layoutManager= GridLayoutManager(context,2)
-            //LinearLayoutManager(context,/*, LinearLayoutManager.HORIZONTAL, false*/)
         animeVm = ViewModelProvider(this)[AnimeViewModel::class.java]
         //animeVm.myNotification(MainActivity())
 
         loadAnimeImages()
         check()
-        //AnimeNotificationRepo().myNotification(MainActivity())
 
         binding.btnNext.setOnClickListener {
             if (i >= 0){
@@ -80,9 +69,8 @@ class AnimeFragment : Fragment() {
     }
 
     private fun loadAnimeImages(pageNum:String= "0"){
-
         animeVm.allAnime(pageNum).observe(requireActivity(), {
-                binding.rvAnime.adapter= AnimeAdapter(it.data)
+                binding.rvAnime.adapter= AnimeAdapter(it.data,"AnimeFragment")
             Log.d("Anime main response", it.toString())
         })
     }

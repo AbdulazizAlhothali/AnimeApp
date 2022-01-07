@@ -1,12 +1,12 @@
 package com.example.animeapp.ui.signin
 
 import android.util.Log
-import android.widget.Toast
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
+import com.example.animeapp.Utils
 import com.example.animeapp.event.Event
 import com.google.firebase.auth.FirebaseAuth
 
@@ -22,7 +22,7 @@ class SignInViewModel : ViewModel() {
 
 
     fun signIn(){
-        if (checkEmpty(arrayListOf(email.value, pass.value))) {
+        if (Utils.checkValidation(email.value,pass.value)) {
             auth.signInWithEmailAndPassword(email.value.toString(), pass.value.toString())
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -43,20 +43,4 @@ class SignInViewModel : ViewModel() {
         _navigateScreen.value = Event(action)
     }
 
-
-
-
-    private fun checkEmpty(arrOfEditText: ArrayList<String?>): Boolean {
-        var returnValue = false
-        for (i in arrOfEditText) {
-            if (i == "") {
-                statusMessage.value = Event("fields must be filled")
-                returnValue = false
-                break
-            } else {
-                returnValue = true
-            }
-        }
-        return returnValue
-    }
 }

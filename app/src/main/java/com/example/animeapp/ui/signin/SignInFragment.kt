@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.animeapp.R
+import com.example.animeapp.Utils
 import com.example.animeapp.databinding.SignInFragmentBinding
 
 class SignInFragment : Fragment() {
@@ -18,14 +19,14 @@ class SignInFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var binding: SignInFragmentBinding
     private val signInVM by lazy {
-        ViewModelProvider(this).get(SignInViewModel::class.java)
+        ViewModelProvider(this)[SignInViewModel::class.java]
     }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= SignInFragmentBinding.inflate(inflater,container, false)
         return binding.root
 
@@ -45,14 +46,33 @@ class SignInFragment : Fragment() {
         binding.lifecycleOwner= this
         binding.signInVm= signInVM
         navController = Navigation.findNavController(view)
-        signInVM.navigateScreen.observe(requireActivity(), Observer {
-            it.getContentIfNotHandled()?.let { action->
-                navController.navigate(action)
-            }
-        })
-        signInVM.message.observe(requireActivity(), Observer {
-            it.getContentIfNotHandled()?.let { toast ->
-                Toast.makeText(requireContext(),toast, Toast.LENGTH_SHORT).show()
+        signInVM.apply {
+            navigateScreen.observe(viewLifecycleOwner, {
+                it.getContentIfNotHandled()?.let { action->
+                    navController.navigate(action)
+                }
+            })
+
+            message.observe(viewLifecycleOwner, {
+                it.getContentIfNotHandled()?.let { toast ->
+                    Toast.makeText(context,toast, Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
+        Utils.message.observe(viewLifecycleOwner,{
+            it.getContentIfNotHandled()?.let { message ->
+                when (message) {
+                    Utils.FIELDS_MUST_BE_FILLED -> {
+                        Toast.makeText(context,getString(R.string.fields_must_be_filled), Toast.LENGTH_SHORT).show()
+                    }
+                    Utils.PASSWORD_COUNT -> {
+                        Toast.makeText(context,getString(R.string.pass_more_than_8), Toast.LENGTH_SHORT).show()
+                    }
+                    Utils.WRONG_EMAIL -> {
+                        Toast.makeText(context,getString(R.string.wrong_email), Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         })
 

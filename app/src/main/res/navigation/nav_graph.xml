@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/signInFragment">
 
     <fragment
         android:id="@+id/signUpFragment"
@@ -81,5 +81,9 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.animeapp.ui.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="SettingsTestFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
 </navigation>

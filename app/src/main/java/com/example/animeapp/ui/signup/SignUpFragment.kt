@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.animeapp.R
+import com.example.animeapp.Utils
 import com.example.animeapp.databinding.SignUpFragmentBinding
 
 class SignUpFragment : Fragment() {
@@ -30,17 +32,40 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.lifecycleOwner= this
         binding.signUpViewModel= signUpVM
         navController = Navigation.findNavController(view)
-        signUpVM.navigateScreen.observe(viewLifecycleOwner,{
-          it.getContentIfNotHandled()?.let { action->
-              navController.navigate(action)
-          }
-        })
-        signUpVM.message.observe(viewLifecycleOwner,{
-            it.getContentIfNotHandled()?.let { message->
-                Toast.makeText(requireContext(),message, Toast.LENGTH_SHORT).show()
+        signUpVM.apply {
+            navigateScreen.observe(viewLifecycleOwner,{
+                it.getContentIfNotHandled()?.let { action->
+                    navController.navigate(action)
+                }
+            })
+            message.observe(viewLifecycleOwner, {
+                it.getContentIfNotHandled()?.let { message ->
+                    if (message == Utils.PASSWORD_MISMATCH){
+                        Toast.makeText(context,getString(R.string.pass_mismatch),Toast.LENGTH_SHORT).show()
+                    } else{
+                        Toast.makeText(context,message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
+
+        Utils.message.observe(viewLifecycleOwner,{
+            it.getContentIfNotHandled()?.let { message ->
+                when (message) {
+                    Utils.FIELDS_MUST_BE_FILLED -> {
+                        Toast.makeText(context,getString(R.string.fields_must_be_filled), Toast.LENGTH_SHORT).show()
+                    }
+                    Utils.PASSWORD_COUNT -> {
+                        Toast.makeText(context,getString(R.string.pass_more_than_8), Toast.LENGTH_SHORT).show()
+                    }
+                    Utils.WRONG_EMAIL -> {
+                        Toast.makeText(context,getString(R.string.wrong_email), Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         })
     }

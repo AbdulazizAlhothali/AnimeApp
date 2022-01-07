@@ -1,15 +1,12 @@
 package com.example.animeapp.ui.search
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.animeapp.data.AnimeData
 import com.example.animeapp.network.AnimeRepo
 import kotlinx.coroutines.launch
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel() : ViewModel() {
     private val repo = AnimeRepo()
 
     fun searchAnime (searchKeyword: String): LiveData<AnimeData> {

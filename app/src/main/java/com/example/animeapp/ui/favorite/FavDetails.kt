@@ -16,25 +16,21 @@ import com.google.firebase.ktx.Firebase
 class FavDetails : BottomSheetDialogFragment() {
 
     private lateinit var binding: FavDetailsBinding
-    val args: FavDetailsArgs by navArgs()
-
-
-
+    private val args: FavDetailsArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         binding = FavDetailsBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //check()
-        var a = args.animeEp.removePrefix(" ")
+
+        val a = args.animeEp.removePrefix(" ")
         var i = a.toInt()
 
         if (i<1){
@@ -78,10 +74,6 @@ class FavDetails : BottomSheetDialogFragment() {
             val action = FavDetailsDirections.actionFavDetailsToFavoriteFragment()
             findNavController().navigate(action)
         }
-    }
-
-    private fun check (){
-
     }
 
 }

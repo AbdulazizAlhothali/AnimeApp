@@ -1,7 +1,6 @@
 package com.example.animeapp.ui.animedetail
 
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,21 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.example.animeapp.R
 import com.example.animeapp.databinding.AnimeDetailsFragmentBinding
-import com.example.animeapp.databinding.SignUpFragmentBinding
 
 class AnimeDetailsFragment : Fragment() {
 
 
-    private lateinit var viewModel: AnimeDetailsViewModel
-    val args: AnimeDetailsFragmentArgs by navArgs()
+    private val args: AnimeDetailsFragmentArgs by navArgs()
     private lateinit var binding: AnimeDetailsFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= AnimeDetailsFragmentBinding.inflate(inflater,container, false)
         return binding.root
     }

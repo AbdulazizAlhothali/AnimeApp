@@ -1,27 +1,22 @@
 package com.example.animeapp.ui.main
 
-import androidx.lifecycle.ViewModelProvider
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.animeapp.R
-import com.example.animeapp.databinding.FavoriteFragmentBinding
 import com.example.animeapp.databinding.MainFragmentBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : Fragment() {
 
-
-
-    private lateinit var viewModel: MainViewModel
     private lateinit var binding : MainFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= MainFragmentBinding.inflate(inflater,container,false)
         return binding.root
     }

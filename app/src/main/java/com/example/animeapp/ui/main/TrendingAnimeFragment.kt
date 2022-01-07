@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.animeapp.R
-import com.example.animeapp.databinding.AnimeFragmentBinding
 import com.example.animeapp.databinding.TrendingAnimeFragmentBinding
 
 class TrendingAnimeFragment : Fragment() {
@@ -21,7 +19,7 @@ class TrendingAnimeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= TrendingAnimeFragmentBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -35,8 +33,8 @@ class TrendingAnimeFragment : Fragment() {
 
     private fun loadAnimeImages(){
 
-        trendingAnimeVM.trendingAnime().observe(requireActivity(), {
-            binding.trendingRV.adapter = TrendingAnimeAdapter(it.data)
+        trendingAnimeVM.trendingAnime().observe(viewLifecycleOwner, {
+            binding.trendingRV.adapter = AnimeAdapter(it.data,"AnimeFragment")
             Log.d("Trending Anime main response", it.toString())
         })
     }

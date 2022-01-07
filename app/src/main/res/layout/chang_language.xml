@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:text="change_language"
+            android:text="@string/change_language"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="English"
+                android:text="@string/english"
                 android:textSize="18sp" />
 
             <RadioButton
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Arabic"
+                android:text="@string/arabic"
                 android:textSize="18sp"
                 tools:ignore="MissingConstraints" />
 
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
 
-            android:text="Save Changed"
+            android:text="@string/save_changed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
