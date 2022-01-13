@@ -2,7 +2,6 @@ package com.example.animeapp.ui
 
 import android.app.Activity
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -19,11 +18,13 @@ import com.example.animeapp.R
 import com.example.animeapp.Utils
 import com.example.animeapp.databinding.SettingsFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.chang_language.view.*
 import java.util.*
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: SettingsFragmentBinding
+    private val auth = FirebaseAuth.getInstance()
     private val settings by lazy {
         this.requireActivity().getSharedPreferences(Utils.SETTINGS, Context.MODE_PRIVATE)
     }
@@ -51,12 +52,16 @@ class SettingsFragment : Fragment() {
             } else {
                 AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
             }
-            val editor: SharedPreferences.Editor = settings.edit()
-            editor.putBoolean(Utils.CHECK, isChecked)
-            editor.apply()
+            settings.edit()
+                .putBoolean(Utils.CHECK, isChecked)
+                .apply()
         }
 
         binding.SignOut.setOnClickListener {
+            auth.signOut()
+            settings.edit()
+                .clear()
+                .apply()
             val action = SettingsFragmentDirections.actionSettingsFragmentToSignInFragment()
             findNavController().navigate(action)
         }

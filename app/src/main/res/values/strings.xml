@@ -40,4 +40,9 @@
     <string name="fields_must_be_filled">fields must be filled</string>
     <string name="pass_more_than_8">Password must be more than 8 numbers</string>
     <string name="wrong_email">Email is wrong</string>
+    <string name="all_anime">All Anime</string>
+    <string name="trending_anime">Trending Anime</string>
+    <string name="main">Main</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
 </resources>

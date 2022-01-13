@@ -49,33 +49,37 @@ class CustomHolder(private val binding: RecyclerViewItemBinding, private val cal
     private val drawTale = binding.root.resources.getDrawable(R.drawable.ic_baseline_favorite_24, binding.root.resources.newTheme())
     lateinit var action: NavDirections
     fun bind(anime: Data){
-        drawRed.setTint(binding.root.resources.getColor(R.color.red, binding.root.resources.newTheme()) )
-        drawRed.setTintMode(PorterDuff.Mode.SRC_IN)
-        drawTale.setTint(binding.root.resources.getColor(R.color.purple_200, binding.root.resources.newTheme()))
-        drawTale.setTintMode(PorterDuff.Mode.SRC_IN)
-        binding.btnLike.setImageDrawable(drawTale)
-        binding.btnLike.setOnClickListener {
-            check(true,anime)
-        }
-        check(false,anime)
-        binding.ivAnimePoster.load(anime.attributes.posterImage.large)
-        binding.tvAnimeName.text = anime.attributes.canonicalTitle
-        binding.tvRate.text= anime.attributes.averageRating.toString()
-        val description = anime.attributes.description
-        val ageRate = anime.attributes.ageRating
-        val animeEp= anime.attributes.episodeCount.toString()+"ep"
-        binding.root.setOnClickListener {
-            val detailsArg = Details(anime.attributes.canonicalTitle,
-                anime.attributes.posterImage.original,
-            description,
-                anime.attributes.averageRating.toString(),
-            ageRate,animeEp)
-            when(caller){
-                "AnimeFragment" -> action = MainFragmentDirections.actionMainFragmentToAnimeDetailsFragment(detailsArg)
-                "SearchFragment" -> action = SearchFragmentDirections.actionSearchFragmentToAnimeDetailsFragment(detailsArg)
+
+        binding.apply {
+            drawRed.setTint(root.resources.getColor(R.color.red, root.resources.newTheme()) )
+            drawRed.setTintMode(PorterDuff.Mode.SRC_IN)
+            drawTale.setTint(root.resources.getColor(R.color.purple_200, root.resources.newTheme()))
+            drawTale.setTintMode(PorterDuff.Mode.SRC_IN)
+            btnLike.setImageDrawable(drawTale)
+            btnLike.setOnClickListener {
+                check(true,anime)
             }
-            binding.root.findNavController().navigate(action)
+            check(false,anime)
+            ivAnimePoster.load(anime.attributes.posterImage.large)
+            tvAnimeName.text = anime.attributes.canonicalTitle
+            tvRate.text= anime.attributes.averageRating.toString()
+            val description = anime.attributes.description
+            val ageRate = anime.attributes.ageRating
+            val animeEp= anime.attributes.episodeCount.toString()+"ep"
+            root.setOnClickListener {
+                val detailsArg = Details(anime.attributes.canonicalTitle,
+                    anime.attributes.posterImage.large,
+                    description,
+                    anime.attributes.averageRating.toString(),
+                    ageRate,animeEp)
+                when(caller){
+                    "AnimeFragment" -> action = MainFragmentDirections.actionMainFragmentToAnimeDetailsFragment(detailsArg)
+                    "SearchFragment" -> action = SearchFragmentDirections.actionSearchFragmentToAnimeDetailsFragment(detailsArg)
+                }
+                root.findNavController().navigate(action)
+            }
         }
+
     }
 
     private fun check(onclick: Boolean, anime: Data){

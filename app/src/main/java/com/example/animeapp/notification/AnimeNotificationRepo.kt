@@ -9,10 +9,10 @@ import com.example.animeapp.MainActivity
 import java.util.concurrent.TimeUnit
 
 class AnimeNotificationRepo () {
-    private val list = listOf("a","b","c").random()
+    private val list = listOf("Explore New Anime","Check The Latest Trending Anime","You can Track Episode You Watch with Us").random()
     fun myNotification(mainActivity: MainActivity){
         val myWorkRequest= PeriodicWorkRequest
-            .Builder(AnimeWorker::class.java,15,TimeUnit.MINUTES)
+            .Builder(AnimeWorker::class.java,12,TimeUnit.HOURS)
             .setInputData(workDataOf(
                 "title" to "Anime App",
                 "message" to list)

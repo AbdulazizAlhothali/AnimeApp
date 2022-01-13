@@ -25,10 +25,12 @@
         <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/activity_splash_screen.xml" value="0.128" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/anime_details_fragment.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/anime_fragment.xml" value="0.4" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/chang_language.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/fav_details.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/favorite_fragment.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/favorite_recyclerview_item.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/forgot_password_fragment.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/main_activity.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/main_fragment.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/AnimeApp2/app/src/main/res/layout/recycler_view_item.xml" value="0.23645833333333333" />

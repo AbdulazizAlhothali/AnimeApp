@@ -37,24 +37,19 @@ class SignUpFragment : Fragment() {
         binding.signUpViewModel= signUpVM
         navController = Navigation.findNavController(view)
         signUpVM.apply {
-            navigateScreen.observe(viewLifecycleOwner,{
-                it.getContentIfNotHandled()?.let { action->
+            navigateScreen.observe(viewLifecycleOwner,{ action->
                     navController.navigate(action)
-                }
             })
-            message.observe(viewLifecycleOwner, {
-                it.getContentIfNotHandled()?.let { message ->
+            message.observe(viewLifecycleOwner, { message ->
                     if (message == Utils.PASSWORD_MISMATCH){
                         Toast.makeText(context,getString(R.string.pass_mismatch),Toast.LENGTH_SHORT).show()
                     } else{
                         Toast.makeText(context,message, Toast.LENGTH_SHORT).show()
                     }
-                }
             })
         }
 
-        Utils.message.observe(viewLifecycleOwner,{
-            it.getContentIfNotHandled()?.let { message ->
+        Utils.message.observe(viewLifecycleOwner,{ message ->
                 when (message) {
                     Utils.FIELDS_MUST_BE_FILLED -> {
                         Toast.makeText(context,getString(R.string.fields_must_be_filled), Toast.LENGTH_SHORT).show()
@@ -66,7 +61,6 @@ class SignUpFragment : Fragment() {
                         Toast.makeText(context,getString(R.string.wrong_email), Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
         })
     }
 }

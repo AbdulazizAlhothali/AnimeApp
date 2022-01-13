@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_signInFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/animeDetailsFragment"
@@ -84,6 +87,11 @@
         android:label="SettingsTestFragment" >
         <action
             android:id="@+id/action_settingsFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.animeapp.ui.forgotpassword.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment" />
 </navigation>

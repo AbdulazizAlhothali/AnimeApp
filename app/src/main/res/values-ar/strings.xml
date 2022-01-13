@@ -24,4 +24,9 @@
     <string name="fields_must_be_filled">يجب تعبئة جميع الحقول</string>
     <string name="pass_more_than_8">كلمة المرور يجب ان تكون اكثر من  8 حروف</string>
     <string name="wrong_email">بريد الكتروني غير صحيح</string>
+    <string name="all_anime">كل الانمي</string>
+    <string name="trending_anime">الانمي الاكثر مشاهدة</string>
+    <string name="main">الرئيسية</string>
+    <string name="search">البحث</string>
+    <string name="favorite">المفضلة</string>
 </resources>

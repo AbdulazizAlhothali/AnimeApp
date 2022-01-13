@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.animeapp.R
 import com.example.animeapp.databinding.MainFragmentBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -39,10 +40,10 @@ class MainFragment : Fragment() {
         TabLayoutMediator(binding.tabLayout, binding.tabsViewpager) { tab, position ->
             when (position) {
                 0 -> {
-                    tab.text = "All Anime"
+                    tab.text = getString(R.string.all_anime)
                 }
                 1 -> {
-                    tab.text = "Trending Anime"
+                    tab.text = getString(R.string.trending_anime)
                 }
             }
         }.attach()

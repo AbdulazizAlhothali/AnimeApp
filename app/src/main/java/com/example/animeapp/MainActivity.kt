@@ -1,11 +1,14 @@
 package com.example.animeapp
 
+import android.app.Activity
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +17,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         supportActionBar?.show()
 
-            val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
+        val sharedPreferencesSettings = this.getSharedPreferences(Utils.SETTINGS, Activity.MODE_PRIVATE)
+        val language = sharedPreferencesSettings.getString(Utils.LANGUAGE, "")
+        if (language.toString() == "ar") {
+            setLocate()
+        }
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
             val navController = navHostFragment.navController
             val navView: BottomNavigationView = findViewById(R.id.buttonView)
             navView.setupWithNavController(navController)
@@ -31,5 +40,13 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+
+    private fun setLocate() {
+        val locale = Locale("ar")
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        this.resources?.updateConfiguration(config, this.resources.displayMetrics)
     }
 }

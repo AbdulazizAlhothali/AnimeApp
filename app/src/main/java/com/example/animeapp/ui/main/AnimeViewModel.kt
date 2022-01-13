@@ -11,11 +11,6 @@ import kotlinx.coroutines.launch
 
 class AnimeViewModel : ViewModel() {
     private val repo = AnimeRepo()
-   // private val animeNotificationRepo = AnimeNotificationRepo()
-
-    /*fun myNotification(mainActivity: MainActivity){
-        animeNotificationRepo.myNotification(mainActivity)
-    }*/
 
     fun allAnime (pageNum:String): LiveData<AnimeData>{
         val animes = MutableLiveData<AnimeData>()
@@ -28,7 +23,4 @@ class AnimeViewModel : ViewModel() {
         }
         return animes
     }
-
-
-
 }

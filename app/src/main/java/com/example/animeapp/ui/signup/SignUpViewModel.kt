@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import com.example.animeapp.Utils
 import com.example.animeapp.data.firestore.User
-import com.example.animeapp.event.Event
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,16 +18,16 @@ class SignUpViewModel : ViewModel() {
     val pass = MutableLiveData<String>()
     val confirm = MutableLiveData<String>()
 
-    private val statusMessage = MutableLiveData<Event<String>>()
-    val message: LiveData<Event<String>> = statusMessage
-    private val _navigateScreen = MutableLiveData<Event<NavDirections>>()
-    val navigateScreen: LiveData<Event<NavDirections>> = _navigateScreen
+    private val statusMessage = MutableLiveData<String>()
+    val message: LiveData<String> = statusMessage
+    private val _navigateScreen = MutableLiveData<NavDirections>()
+    val navigateScreen: LiveData<NavDirections> = _navigateScreen
 
 
     fun authentication(){
         if (Utils.checkValidation(email.value,pass.value)) {
             if (confirm.value != pass.value) {
-                statusMessage.value = Event(Utils.PASSWORD_MISMATCH)
+                statusMessage.value = Utils.PASSWORD_MISMATCH
 
             } else {
                 auth.createUserWithEmailAndPassword(email.value.toString(), pass.value.toString())
@@ -52,10 +51,10 @@ class SignUpViewModel : ViewModel() {
                                 }
 
                             val action = SignUpFragmentDirections.actionSignUpFragmentToMainFragment()
-                            _navigateScreen.value = Event(action)
+                            _navigateScreen.value = action
                         } else {
 
-                            statusMessage.value = Event("Error Message: " + task.exception!!.message.toString())
+                            statusMessage.value = "Error Message: " + task.exception!!.message.toString()
                         }
                     }
 
@@ -65,7 +64,7 @@ class SignUpViewModel : ViewModel() {
 
     fun goToSignIn(){
         val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment()
-        _navigateScreen.value = Event(action)
+        _navigateScreen.value = action
     }
 
 }

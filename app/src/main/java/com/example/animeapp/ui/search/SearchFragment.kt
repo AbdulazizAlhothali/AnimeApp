@@ -29,6 +29,9 @@ class SearchFragment : Fragment() {
         setHasOptionsMenu(true)
         binding.rvSearchAnime.layoutManager= GridLayoutManager(context,2)
         searchVm = ViewModelProvider(this)[SearchViewModel::class.java]
+        if (searchVm.savedState.isNotEmpty()){
+            loadAnimeImages(searchVm.savedState)
+        }
     }
 
     private fun loadAnimeImages(searchKeyword: String){

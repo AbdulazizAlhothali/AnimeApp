@@ -3,17 +3,17 @@
     <item
         android:id="@+id/mainFragment"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="Main" />
+        android:title="@string/main" />
     <item
         android:id="@+id/searchFragment"
         android:icon="@drawable/ic_baseline_search_24"
-        android:title="Search" />
+        android:title="@string/search" />
     <item
         android:id="@+id/favoriteFragment"
         android:icon="@drawable/ic_baseline_favorite_24"
-        android:title="Favorite" />
+        android:title="@string/favorite" />
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:title="Settings" />
+        android:title="@string/settings" />
 </menu>

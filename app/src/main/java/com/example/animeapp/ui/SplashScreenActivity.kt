@@ -11,15 +11,17 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.example.animeapp.MainActivity
 import com.example.animeapp.R
 import com.example.animeapp.Utils
+import com.example.animeapp.notification.AnimeNotificationRepo
 import java.util.*
 
 
 class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        getSupportActionBar()?.hide()
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
 
+        AnimeNotificationRepo().myNotification(MainActivity())
         val sharedPreferencesSettings = this.getSharedPreferences(Utils.SETTINGS, Activity.MODE_PRIVATE)
         val language = sharedPreferencesSettings.getString(Utils.LANGUAGE, "")
         val darkMode = sharedPreferencesSettings.getBoolean(Utils.CHECK,false)
@@ -44,7 +46,5 @@ class SplashScreenActivity : AppCompatActivity() {
         val config = Configuration()
         config.locale = locale
         this.resources?.updateConfiguration(config, this.resources.displayMetrics)
-
     }
-
 }

@@ -1,6 +1,7 @@
 package com.example.animeapp.ui.signin
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,13 +14,18 @@ import androidx.navigation.Navigation
 import com.example.animeapp.R
 import com.example.animeapp.Utils
 import com.example.animeapp.databinding.SignInFragmentBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class SignInFragment : Fragment() {
 
+    private val auth = FirebaseAuth.getInstance()
     private lateinit var navController: NavController
     private lateinit var binding: SignInFragmentBinding
     private val signInVM by lazy {
         ViewModelProvider(this)[SignInViewModel::class.java]
+    }
+    private val settings by lazy {
+        this.requireActivity().getSharedPreferences(Utils.SETTINGS, Context.MODE_PRIVATE)
     }
 
 
@@ -31,13 +37,6 @@ class SignInFragment : Fragment() {
         return binding.root
 
     }
-    /*private fun retrieveData(){
-
-        val myPref = requireContext().getSharedPreferences("myPref", Context.MODE_PRIVATE)
-        val name = myPref.getString("username", "")
-        username_email.setText(name)
-
-    }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,23 +44,19 @@ class SignInFragment : Fragment() {
 
         binding.lifecycleOwner= this
         binding.signInVm= signInVM
+        //ForgotPasswordFragment.
         navController = Navigation.findNavController(view)
         signInVM.apply {
-            navigateScreen.observe(viewLifecycleOwner, {
-                it.getContentIfNotHandled()?.let { action->
+            navigateScreen.observe(viewLifecycleOwner, { action->
                     navController.navigate(action)
-                }
             })
 
-            message.observe(viewLifecycleOwner, {
-                it.getContentIfNotHandled()?.let { toast ->
+            message.observe(viewLifecycleOwner, { toast ->
                     Toast.makeText(context,toast, Toast.LENGTH_SHORT).show()
-                }
             })
         }
 
-        Utils.message.observe(viewLifecycleOwner,{
-            it.getContentIfNotHandled()?.let { message ->
+        Utils.message.observe(viewLifecycleOwner,{ message ->
                 when (message) {
                     Utils.FIELDS_MUST_BE_FILLED -> {
                         Toast.makeText(context,getString(R.string.fields_must_be_filled), Toast.LENGTH_SHORT).show()
@@ -73,20 +68,31 @@ class SignInFragment : Fragment() {
                         Toast.makeText(context,getString(R.string.wrong_email), Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
         })
+        val remembered = settings.getBoolean("remember",false)
+        binding.cbRememberMe.setOnClickListener {
 
-        //showing username name or email
-       // retrieveData()
-        // session management
-        /*val currentuser = auth.currentUser
-        if (currentuser != null) {
-            val action = SignInFragmentDirections.actionSignInFragmentToAnimeFragment()
-            findNavController().navigate(action)
-        }*/
+            if (binding.cbRememberMe.isChecked) {
+                settings.edit()
+                    .putBoolean("remember", true)
+                    .apply()
+            } else {
+                settings.edit()
+                    .putBoolean("remember", false)
+                    .apply()
+            }
+        }
 
+        val currentUser = auth.currentUser
+
+        binding.cbRememberMe.isChecked = remembered
+        if (binding.cbRememberMe.isChecked && currentUser != null){
+            val action = SignInFragmentDirections.actionSignInFragmentToMainFragment()
+            navController.navigate(action)
+        }
+        binding.signinTvForgetPass.setOnClickListener {
+            val action = SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()
+            navController.navigate(action)
+        }
     }
-
-
-
 }
