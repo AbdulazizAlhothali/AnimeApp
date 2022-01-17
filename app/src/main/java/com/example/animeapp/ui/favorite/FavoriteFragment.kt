@@ -2,6 +2,7 @@ package com.example.animeapp.ui.favorite
 
 
 
+import android.annotation.SuppressLint
 import android.graphics.Canvas
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -35,6 +36,7 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         favList = mutableListOf()
