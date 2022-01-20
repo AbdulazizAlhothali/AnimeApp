@@ -35,6 +35,9 @@ class MainActivity : AppCompatActivity() {
                     R.id.signInFragment -> {
                         navView.visibility = View.GONE
                     }
+                    R.id.forgotPasswordFragment -> {
+                        navView.visibility = View.GONE
+                    }
                     else -> {
                         navView.visibility = View.VISIBLE
                     }
