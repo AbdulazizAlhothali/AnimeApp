@@ -34,7 +34,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding= SettingsFragmentBinding.inflate(inflater,container, false)
+        binding = SettingsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -44,7 +44,7 @@ class SettingsFragment : Fragment() {
         binding.tvChangeLanguage.setOnClickListener {
             dialogChangeLanguage()
         }
-        binding.switchDarkMode.isChecked = settings.getBoolean(Utils.CHECK,false)
+        binding.switchDarkMode.isChecked = settings.getBoolean(Utils.CHECK, false)
 
         binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -74,22 +74,22 @@ class SettingsFragment : Fragment() {
         builder.setTitle("Change Language")
         val btnChangeLanguage = view.btnChangeLanguage
         val radioGroup = view.radioGroup
-        val radioButton1= view.findViewById<RadioButton>(R.id.englishLanguageXml)
-        val radioButton2= view.findViewById<RadioButton>(R.id.arabicLanguageXml)
+        val radioButton1 = view.findViewById<RadioButton>(R.id.englishLanguageXml)
+        val radioButton2 = view.findViewById<RadioButton>(R.id.arabicLanguageXml)
         val language = settings.getString(Utils.LANGUAGE, "")
-        if (language == "ar"){
+        if (language == "ar") {
             radioButton2.isChecked = true
         } else {
             radioButton1.isChecked = true
         }
 
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            val selectedLanguage:RadioButton=view.findViewById(checkedId)
+            val selectedLanguage: RadioButton = view.findViewById(checkedId)
             btnChangeLanguage.setOnClickListener {
-                if (selectedLanguage.text.toString()==getString(R.string.arabic)){
+                if (selectedLanguage.text.toString() == getString(R.string.arabic)) {
                     setLocaleLang("ar")
                     recreate(context as Activity)
-                }else if (selectedLanguage.text.toString()==getString(R.string.english)){
+                } else if (selectedLanguage.text.toString() == getString(R.string.english)) {
                     setLocaleLang("en")
                     recreate(context as Activity)
                 }
@@ -105,8 +105,8 @@ class SettingsFragment : Fragment() {
         val config = Configuration()
         config.locale = locale
         context?.resources?.updateConfiguration(config, requireContext().resources.displayMetrics)
-        val editor = settings.edit()
-        editor.putString(Utils.LANGUAGE, locale.toString())
-        editor.apply()
+        settings.edit()
+            .putString(Utils.LANGUAGE, locale.toString())
+            .apply()
     }
 }

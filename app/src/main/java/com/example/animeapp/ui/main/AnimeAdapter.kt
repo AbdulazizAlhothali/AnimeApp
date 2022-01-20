@@ -2,7 +2,6 @@ package com.example.animeapp.ui.main
 
 import android.annotation.SuppressLint
 import android.graphics.PorterDuff
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -19,19 +18,20 @@ import com.example.animeapp.ui.search.SearchFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
-class AnimeAdapter(private val top: List<Data>,private val caller: String) : RecyclerView.Adapter<CustomHolder>() {
+class AnimeAdapter(private val top: List<Data>, private val caller: String) :
+    RecyclerView.Adapter<CustomHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomHolder {
-        val bind = DataBindingUtil.inflate<RecyclerViewItemBinding>(LayoutInflater.from(parent.context),
-            R.layout.recycler_view_item,parent,false)
-        return CustomHolder(bind,caller)
+        val bind = DataBindingUtil.inflate<RecyclerViewItemBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.recycler_view_item, parent, false
+        )
+        return CustomHolder(bind, caller)
     }
 
     override fun onBindViewHolder(holder: CustomHolder, position: Int) {
         val anime = top[position]
-
         holder.bind(anime)
-
     }
 
     override fun getItemCount(): Int {
@@ -39,42 +39,76 @@ class AnimeAdapter(private val top: List<Data>,private val caller: String) : Rec
     }
 
 }
-class CustomHolder(private val binding: RecyclerViewItemBinding, private val caller: String): RecyclerView.ViewHolder(binding.root){
+
+class CustomHolder(private val binding: RecyclerViewItemBinding, private val caller: String) :
+    RecyclerView.ViewHolder(binding.root) {
 
     private val firebaseUserId = FirebaseAuth.getInstance().currentUser!!.uid
     private val firebaseFirestore = FirebaseFirestore.getInstance()
+
     @SuppressLint("UseCompatLoadingForDrawables")
-    private val drawRed = binding.root.resources.getDrawable(R.drawable.ic_baseline_favorite_24, binding.root.resources.newTheme())
+    private val drawRed = binding.root.resources.getDrawable(
+        R.drawable.ic_baseline_favorite_24,
+        binding.root.resources.newTheme()
+    )
+
     @SuppressLint("UseCompatLoadingForDrawables")
-    private val drawTale = binding.root.resources.getDrawable(R.drawable.ic_baseline_favorite_24, binding.root.resources.newTheme())
+    private val drawTale = binding.root.resources.getDrawable(
+        R.drawable.ic_baseline_favorite_24,
+        binding.root.resources.newTheme()
+    )
     lateinit var action: NavDirections
-    fun bind(anime: Data){
+    fun bind(anime: Data) {
 
         binding.apply {
-            drawRed.setTint(root.resources.getColor(R.color.red, root.resources.newTheme()) )
+            drawRed.setTint(root.resources.getColor(R.color.red, root.resources.newTheme()))
             drawRed.setTintMode(PorterDuff.Mode.SRC_IN)
             drawTale.setTint(root.resources.getColor(R.color.purple_200, root.resources.newTheme()))
             drawTale.setTintMode(PorterDuff.Mode.SRC_IN)
             btnLike.setImageDrawable(drawTale)
+            check(anime)
             btnLike.setOnClickListener {
-                check(true,anime)
+                if (btnLike.drawable == drawRed) {
+                    firebaseFirestore.collection("users").document(firebaseUserId)
+                        .collection("Favorite")
+                        .document(anime.attributes.canonicalTitle).delete()
+                    btnLike.setImageDrawable(drawTale)
+                } else {
+                    val fav = Favorite(
+                        firebaseUserId,
+                        anime.attributes.posterImage.original,
+                        anime.attributes.canonicalTitle, "0.0", "0"
+                    )
+                    firebaseFirestore.collection("users").document(firebaseUserId)
+                        .collection("Favorite").document(anime.attributes.canonicalTitle)
+                        .set(fav)
+                    btnLike.setImageDrawable(drawRed)
+                }
             }
-            check(false,anime)
+
+
+
             ivAnimePoster.load(anime.attributes.posterImage.large)
             tvAnimeName.text = anime.attributes.canonicalTitle
-            tvRate.text= anime.attributes.averageRating.toString()
+            tvRate.text = anime.attributes.averageRating.toString()
             val description = anime.attributes.description
             val ageRate = anime.attributes.ageRating
-            val animeEp= anime.attributes.episodeCount.toString()+"ep"
+            val animeEp = anime.attributes.episodeCount.toString() + "ep"
             root.setOnClickListener {
-                val detailsArg = Details(anime.attributes.canonicalTitle,
+                val detailsArg = Details(
+                    anime.attributes.canonicalTitle,
                     anime.attributes.posterImage.large,
                     description,
                     anime.attributes.averageRating.toString(),
-                    ageRate,animeEp)
-                when(caller){
-                    "AnimeFragment" -> action = MainFragmentDirections.actionMainFragmentToAnimeDetailsFragment(detailsArg)
-                    "SearchFragment" -> action = SearchFragmentDirections.actionSearchFragmentToAnimeDetailsFragment(detailsArg)
+                    ageRate, animeEp
+                )
+                when (caller) {
+                    "AnimeFragment" -> action =
+                        MainFragmentDirections.actionMainFragmentToAnimeDetailsFragment(detailsArg)
+                    "SearchFragment" -> action =
+                        SearchFragmentDirections.actionSearchFragmentToAnimeDetailsFragment(
+                            detailsArg
+                        )
                 }
                 root.findNavController().navigate(action)
             }
@@ -82,39 +116,17 @@ class CustomHolder(private val binding: RecyclerViewItemBinding, private val cal
 
     }
 
-    private fun check(onclick: Boolean, anime: Data){
+    private fun check(anime: Data) {
         firebaseFirestore.collection("users")
             .document(firebaseUserId)
             .collection("Favorite")
             .document(anime.attributes.canonicalTitle)
             .get()
             .addOnCompleteListener {
-                if (it.result.exists()){
-                    if (!onclick){
-                        binding.btnLike.setImageDrawable(drawRed)
-                    }else {
-                        firebaseFirestore.collection("users").document(firebaseUserId)
-                            .collection("Favorite")
-                            .document(anime.attributes.canonicalTitle).delete()
-                        binding.btnLike.setImageDrawable(drawTale)
-                    }
+                if (it.result.exists()) {
+                    binding.btnLike.setImageDrawable(drawRed)
                 } else {
-                    if (!onclick) {
-                        binding.btnLike.setImageDrawable(drawTale)
-                    }else{
-                        val fav= Favorite(firebaseUserId,
-                            anime.attributes.posterImage.original,
-                            anime.attributes.canonicalTitle,"0.0","0")
-                        firebaseFirestore.collection("users").document(firebaseUserId).collection("Favorite").document(anime.attributes.canonicalTitle)
-                            .set(fav)
-                            .addOnSuccessListener {
-                                Log.d("TAG", "DocumentSnapshot successfully written!")
-                            }
-                            .addOnFailureListener { e ->
-                                Log.w("TAG", "Error writing document", e)
-                            }
-                        binding.btnLike.setImageDrawable(drawRed)
-                    }
+                    binding.btnLike.setImageDrawable(drawTale)
                 }
             }
     }
