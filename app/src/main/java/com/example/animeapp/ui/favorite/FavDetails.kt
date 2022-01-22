@@ -28,7 +28,6 @@ class FavDetails : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        //check()
 
         val a = args.animeEp.removePrefix(" ")
         var i = a.toInt()
@@ -51,7 +50,6 @@ class FavDetails : BottomSheetDialogFragment() {
         }
 
         binding.ivPreviousEp.setOnClickListener {
-            //check()
             if (i<1){
                 binding.ivPreviousEp.isEnabled= false
             } else if (i>=1){
