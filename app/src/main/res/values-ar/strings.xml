@@ -29,4 +29,7 @@
     <string name="main">الرئيسية</string>
     <string name="search">البحث</string>
     <string name="favorite">المفضلة</string>
+    <string name="rememberme">تذكرني</string>
+    <string name="forgot_password">نسيت كلمة السر</string>
+    <string name="send">ارسال</string>
 </resources>

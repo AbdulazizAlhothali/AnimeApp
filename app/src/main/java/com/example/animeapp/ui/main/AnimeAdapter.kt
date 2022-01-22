@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
@@ -66,12 +67,11 @@ class CustomHolder(private val binding: RecyclerViewItemBinding, private val cal
             drawTale.setTint(root.resources.getColor(R.color.purple_200, root.resources.newTheme()))
             drawTale.setTintMode(PorterDuff.Mode.SRC_IN)
             btnLike.setImageDrawable(drawTale)
-            check(anime)
             btnLike.setOnClickListener {
                 if (btnLike.drawable == drawRed) {
                     firebaseFirestore.collection("users").document(firebaseUserId)
                         .collection("Favorite")
-                        .document(anime.attributes.canonicalTitle).delete()
+                        .document(anime.id.toString()).delete()
                     btnLike.setImageDrawable(drawTale)
                 } else {
                     val fav = Favorite(
@@ -80,7 +80,7 @@ class CustomHolder(private val binding: RecyclerViewItemBinding, private val cal
                         anime.attributes.canonicalTitle, "0.0", "0"
                     )
                     firebaseFirestore.collection("users").document(firebaseUserId)
-                        .collection("Favorite").document(anime.attributes.canonicalTitle)
+                        .collection("Favorite").document(anime.id.toString())
                         .set(fav)
                     btnLike.setImageDrawable(drawRed)
                 }
@@ -89,11 +89,12 @@ class CustomHolder(private val binding: RecyclerViewItemBinding, private val cal
 
 
             ivAnimePoster.load(anime.attributes.posterImage.large)
-            tvAnimeName.text = anime.attributes.canonicalTitle
+            tvAnimeName.text = anime.attributes.titles.en
             tvRate.text = anime.attributes.averageRating.toString()
             val description = anime.attributes.description
             val ageRate = anime.attributes.ageRating
             val animeEp = anime.attributes.episodeCount.toString() + "ep"
+            check(anime)
             root.setOnClickListener {
                 val detailsArg = Details(
                     anime.attributes.canonicalTitle,
@@ -120,7 +121,7 @@ class CustomHolder(private val binding: RecyclerViewItemBinding, private val cal
         firebaseFirestore.collection("users")
             .document(firebaseUserId)
             .collection("Favorite")
-            .document(anime.attributes.canonicalTitle)
+            .document(anime.id.toString())
             .get()
             .addOnCompleteListener {
                 if (it.result.exists()) {

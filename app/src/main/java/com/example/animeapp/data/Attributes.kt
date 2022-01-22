@@ -7,6 +7,7 @@ data class Attributes(
     val synopsis : String,
     val description : String,
     val coverImageTopOffset : Int,
+    val titles : Titles,
     val canonicalTitle : String,
     val averageRating : Double,
     val favoritesCount : Int,

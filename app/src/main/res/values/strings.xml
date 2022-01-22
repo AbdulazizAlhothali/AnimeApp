@@ -45,4 +45,7 @@
     <string name="main">Main</string>
     <string name="search">Search</string>
     <string name="favorite">Favorite</string>
+    <string name="rememberme">RememberMe</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="send">SEND</string>
 </resources>
