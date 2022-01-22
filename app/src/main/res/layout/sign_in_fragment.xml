@@ -121,7 +121,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginBottom="10dp"
                 android:clickable="true"
-                android:text="RememberMe"
+                android:text="@string/rememberme"
                 app:layout_constraintBottom_toTopOf="@+id/signin_btnSignIn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/signin_etPassword"

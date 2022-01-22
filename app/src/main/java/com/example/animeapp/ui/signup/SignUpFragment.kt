@@ -1,5 +1,6 @@
 package com.example.animeapp.ui.signup
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,13 +13,19 @@ import androidx.navigation.Navigation
 import com.example.animeapp.R
 import com.example.animeapp.Utils
 import com.example.animeapp.databinding.SignUpFragmentBinding
+import com.example.animeapp.ui.signin.SignInFragmentDirections
+import com.google.firebase.auth.FirebaseAuth
 
 class SignUpFragment : Fragment() {
 
+    private val auth = FirebaseAuth.getInstance()
     private lateinit var navController: NavController
     private lateinit var binding: SignUpFragmentBinding
     private val signUpVM by lazy {
         ViewModelProvider(this)[SignUpViewModel::class.java]
+    }
+    private val settings by lazy {
+        this.requireActivity().getSharedPreferences(Utils.SETTINGS, Context.MODE_PRIVATE)
     }
 
     override fun onCreateView(
@@ -62,5 +69,27 @@ class SignUpFragment : Fragment() {
                     }
                 }
         })
+
+        val remembered = settings.getBoolean("remember",false)
+        binding.cbRememberMe.setOnClickListener {
+
+            if (binding.cbRememberMe.isChecked) {
+                settings.edit()
+                    .putBoolean("remember", true)
+                    .apply()
+            } else {
+                settings.edit()
+                    .putBoolean("remember", false)
+                    .apply()
+            }
+        }
+
+        val currentUser = auth.currentUser
+
+        binding.cbRememberMe.isChecked = remembered
+        if (binding.cbRememberMe.isChecked && currentUser != null){
+            val action = SignInFragmentDirections.actionSignInFragmentToMainFragment()
+            navController.navigate(action)
+        }
     }
 }

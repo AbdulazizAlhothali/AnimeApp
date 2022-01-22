@@ -109,6 +109,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintWidth_percent=".8" />
 
+            <CheckBox
+                android:id="@+id/cbRememberMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginBottom="10dp"
+                android:clickable="true"
+                android:text="@string/rememberme"
+                app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signup_confirmPass"
+                app:layout_constraintVertical_bias="0.104" />
+
 
             <Button
                 android:id="@+id/btnSignUp"
