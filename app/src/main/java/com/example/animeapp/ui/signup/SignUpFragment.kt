@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.animeapp.R
@@ -39,7 +40,7 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.signup)
         binding.lifecycleOwner= this
         binding.signUpViewModel= signUpVM
         navController = Navigation.findNavController(view)

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.example.animeapp.R
 import com.example.animeapp.databinding.MainFragmentBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -25,6 +26,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val numberOfTabs = 2
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.main)
 
         // make text and icon of tab in the same line
         binding.tabLayout.isInlineLabel = true

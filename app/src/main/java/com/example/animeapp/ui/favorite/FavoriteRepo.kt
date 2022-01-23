@@ -38,6 +38,6 @@ class FavoriteRepo {
         val currentUser = auth.currentUser!!.uid
         val db = FirebaseFirestore.getInstance()
         db.collection("users").document(currentUser).collection("Favorite")
-            .document(favAnime.animeTitle).delete()
+            .document(favAnime.id).delete()
     }
 }

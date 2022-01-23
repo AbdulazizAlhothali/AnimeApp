@@ -67,7 +67,18 @@
                 android:text="@string/change_language"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_baseline_language_24" />
+
+            <Button
+                android:id="@+id/SignOut"
+                android:layout_width="263dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bgbtn"
+                android:text="@string/signout"
+                android:textColor="@color/white" />
 
             <View
                 android:id="@+id/divider"
@@ -76,15 +87,6 @@
                 android:layout_marginTop="20dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent" />
-
-            <Button
-                android:id="@+id/SignOut"
-                android:layout_width="263dp"
-                android:layout_height="46dp"
-                android:layout_gravity="center"
-                android:background="@drawable/bgbtn"
-                android:text="@string/signout"
-                android:textColor="@color/white" />
 
 
         </LinearLayout>

@@ -75,7 +75,7 @@ class CustomHolder(private val binding: RecyclerViewItemBinding, private val cal
                     btnLike.setImageDrawable(drawTale)
                 } else {
                     val fav = Favorite(
-                        firebaseUserId,
+                        anime.id.toString(),
                         anime.attributes.posterImage.original,
                         anime.attributes.canonicalTitle, "0.0", "0"
                     )

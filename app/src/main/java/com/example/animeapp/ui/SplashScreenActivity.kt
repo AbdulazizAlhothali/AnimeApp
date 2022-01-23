@@ -1,5 +1,6 @@
 package com.example.animeapp.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
@@ -15,6 +16,7 @@ import com.example.animeapp.notification.AnimeNotificationRepo
 import java.util.*
 
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

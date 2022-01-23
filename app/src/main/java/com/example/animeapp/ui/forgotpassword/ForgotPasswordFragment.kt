@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.animeapp.R
 import com.example.animeapp.databinding.ForgotPasswordFragmentBinding
 
 class ForgotPasswordFragment : Fragment() {
@@ -25,6 +27,7 @@ class ForgotPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.forgot_password)
         forgotPassVM = ViewModelProvider(this)[ForgotPasswordViewModel::class.java]
         binding.lifecycleOwner = this
         binding.forgetPassVm = forgotPassVM

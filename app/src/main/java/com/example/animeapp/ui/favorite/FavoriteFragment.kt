@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -39,11 +40,12 @@ class FavoriteFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.favorite)
         favList = mutableListOf()
         favAdapter = FavoriteAdapter(favList)
         binding.rvFavAnime.layoutManager = GridLayoutManager(context,1)
         favVM.showMyFavAnime(favList,viewLifecycleOwner).observe(viewLifecycleOwner,{
-            binding.rvFavAnime.adapter= FavoriteAdapter(favList)
+            binding.rvFavAnime.adapter= favAdapter
             favAdapter.notifyDataSetChanged()
         })
 
