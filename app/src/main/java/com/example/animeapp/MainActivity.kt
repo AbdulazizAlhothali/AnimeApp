@@ -14,14 +14,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+
         supportActionBar?.show()
 
         val sharedPreferencesSettings = this.getSharedPreferences(Utils.SETTINGS, Activity.MODE_PRIVATE)
         val language = sharedPreferencesSettings.getString(Utils.LANGUAGE, "")
         if (language.toString() == "ar") {
-            setLocate()
+            localization("ar")
+        } else {
+            localization("en")
         }
+        setContentView(R.layout.main_activity)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
             val navController = navHostFragment.navController
@@ -45,8 +48,8 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun setLocate() {
-        val locale = Locale("ar")
+    private fun localization(localeName: String) {
+        val locale = Locale(localeName)
         Locale.setDefault(locale)
         val config = Configuration()
         config.locale = locale

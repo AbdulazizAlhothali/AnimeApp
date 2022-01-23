@@ -68,7 +68,8 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_baseline_language_24" />
+                app:drawableStartCompat="@drawable/ic_baseline_language_24"
+                android:drawableTint="@color/teal_700"/>
 
             <Button
                 android:id="@+id/SignOut"
