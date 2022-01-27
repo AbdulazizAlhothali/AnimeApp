@@ -40,7 +40,7 @@ class CustomHolder(private val binding: FavoriteRecyclerviewItemBinding): Recycl
         binding.tvEp.text = anime.episode
 
         binding.root.setOnClickListener {
-            val action= FavoriteFragmentDirections.actionFavoriteFragmentToFavDetails(anime.animeTitle,anime.rate,anime.episode)
+            val action= FavoriteFragmentDirections.actionFavoriteFragmentToFavDetails(anime.animeTitle,anime.rate,anime.episode,anime.id)
             binding.root.findNavController().navigate(action)
         }
     }

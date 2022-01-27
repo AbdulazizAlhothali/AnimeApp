@@ -72,6 +72,9 @@
         <argument
             android:name="animeEp"
             app:argType="string" />
+        <argument
+            android:name="animeId"
+            app:argType="string" />
     </dialog>
     <fragment
         android:id="@+id/mainFragment"

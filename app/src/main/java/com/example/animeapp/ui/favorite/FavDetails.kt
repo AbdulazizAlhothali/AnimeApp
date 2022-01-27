@@ -67,7 +67,7 @@ class FavDetails : BottomSheetDialogFragment() {
         binding.btnFavSave.setOnClickListener {
             val uId = FirebaseAuth.getInstance().currentUser?.uid
             val upDateUserData = Firebase.firestore.collection("users")
-            upDateUserData.document(uId.toString()).collection("Favorite").document(args.animeTitle).update("episode", " "+binding.tvEpNum.text.toString(),
+            upDateUserData.document(uId.toString()).collection("Favorite").document(args.animeId).update("episode", " "+binding.tvEpNum.text.toString(),
                 "rate", " "+binding.rbRateFavAnime.rating.toString())
             val action = FavDetailsDirections.actionFavDetailsToFavoriteFragment()
             findNavController().navigate(action)
