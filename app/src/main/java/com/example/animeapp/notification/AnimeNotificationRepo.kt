@@ -12,7 +12,7 @@ class AnimeNotificationRepo () {
     private val list = listOf("Explore New Anime","Check The Latest Trending Anime","You can Track Episode You Watch with Us").random()
     fun myNotification(mainActivity: MainActivity){
         val myWorkRequest= PeriodicWorkRequest
-            .Builder(AnimeWorker::class.java,12,TimeUnit.HOURS)
+            .Builder(AnimeWorker::class.java,15,TimeUnit.MINUTES)
             .setInputData(workDataOf(
                 "title" to "Anime App",
                 "message" to list)
@@ -20,7 +20,7 @@ class AnimeNotificationRepo () {
             .build()
         WorkManager.getInstance(mainActivity).enqueueUniquePeriodicWork(
             "periodicStockWorker",
-            ExistingPeriodicWorkPolicy.REPLACE,
+            ExistingPeriodicWorkPolicy.KEEP,
             myWorkRequest
         )
     }

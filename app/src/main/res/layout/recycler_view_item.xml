@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="myData"
+            type="com.example.animeapp.data.Data" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -29,7 +31,9 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.002" />
+                app:layout_constraintVertical_bias="0.002"
+                app:loadimage="@{myData.attributes.posterImage.large}"
+                />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -63,6 +67,7 @@
                 android:layout_marginBottom="2dp"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
+                android:text="@{Double.toString(myData.attributes.averageRating)}"
                 app:layout_constraintBottom_toTopOf="@+id/tvAnimeName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:drawableStartCompat="@drawable/ic_baseline_star_24"
@@ -76,6 +81,7 @@
                 android:layout_marginBottom="4dp"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
+                android:text="@{myData.attributes.titles.en}"
                 app:layout_constraintBottom_toBottomOf="@+id/ivAnimePoster"
                 app:layout_constraintEnd_toEndOf="@+id/imageView"
                 app:layout_constraintHorizontal_bias="0.0"

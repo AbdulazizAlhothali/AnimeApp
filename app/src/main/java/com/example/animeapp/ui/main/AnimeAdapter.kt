@@ -86,11 +86,10 @@ class CustomHolder(private val binding: RecyclerViewItemBinding, private val cal
                 }
             }
 
-
-
-            ivAnimePoster.load(anime.attributes.posterImage.large)
+            /*ivAnimePoster.load(anime.attributes.posterImage.large)
             tvAnimeName.text = anime.attributes.titles.en
-            tvRate.text = anime.attributes.averageRating.toString()
+            tvRate.text = anime.attributes.averageRating.toString()*/
+            myData = anime
             val description = anime.attributes.description
             val ageRate = anime.attributes.ageRating
             val animeEp = anime.attributes.episodeCount.toString() + "ep"

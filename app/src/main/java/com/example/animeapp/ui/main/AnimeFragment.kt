@@ -17,7 +17,6 @@ class AnimeFragment : Fragment() {
 
     private lateinit var binding: AnimeFragmentBinding
     private lateinit var animeVm: AnimeViewModel
-
     private var i = 0
     private var j = 1
     override fun onCreateView(
@@ -30,9 +29,6 @@ class AnimeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
         binding.rvAnime.layoutManager= GridLayoutManager(context,2)
         animeVm = ViewModelProvider(this)[AnimeViewModel::class.java]
 
@@ -40,7 +36,6 @@ class AnimeFragment : Fragment() {
         loadAnimeImages()
         check()
         binding.tvPageNum.text = "$j"
-
         binding.btnNext.setOnClickListener {
             if (i >= 0){
                 i += 20
@@ -67,7 +62,6 @@ class AnimeFragment : Fragment() {
                 }
             }
     }
-
     private fun check (){
         if (i<20){
             binding.btnPreviouse.isEnabled= false
@@ -79,9 +73,9 @@ class AnimeFragment : Fragment() {
     }
 
     private fun loadAnimeImages(pageNum:String= "0"){
-        animeVm.allAnime(pageNum).observe(requireActivity(), {
-                binding.rvAnime.adapter= AnimeAdapter(it.data,"AnimeFragment")
+        animeVm.allAnime(pageNum).observe(requireActivity()) {
+            binding.rvAnime.adapter = AnimeAdapter(it.data, "AnimeFragment")
             Log.d("Anime main response", it.toString())
-        })
+        }
     }
 }

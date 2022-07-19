@@ -4,7 +4,6 @@ package com.example.animeapp.ui.favorite
 
 import android.annotation.SuppressLint
 import android.graphics.Canvas
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animeapp.AnimeApp
 import com.example.animeapp.data.firestore.Favorite
 import com.example.animeapp.databinding.FavoriteFragmentBinding
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
@@ -25,9 +25,7 @@ class FavoriteFragment : Fragment() {
     private lateinit var binding: FavoriteFragmentBinding
     private lateinit var favList: MutableList<Favorite>
     lateinit var favAdapter : FavoriteAdapter
-    private val favVM by lazy {
-        ViewModelProvider(this)[FavoriteViewModel::class.java]
-    }
+    private lateinit var favVM : FavoriteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +40,14 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.favorite)
         favList = mutableListOf()
-        favAdapter = FavoriteAdapter(favList)
         binding.rvFavAnime.layoutManager = GridLayoutManager(context,1)
-        favVM.showMyFavAnime(favList,viewLifecycleOwner).observe(viewLifecycleOwner,{
-            binding.rvFavAnime.adapter= favAdapter
-            favAdapter.notifyDataSetChanged()
-        })
+
+        favVM = FavoriteViewModelFactory((requireActivity().application as AnimeApp).favRepo).create(FavoriteViewModel::class.java)
+
+        favVM.showMyFavAnime2("Favorite",favList).observe(viewLifecycleOwner) {
+            favAdapter = FavoriteAdapter(it)
+            binding.rvFavAnime.adapter = favAdapter
+        }
 
         val taskTouchHelper= ItemTouchHelper(simpleCallback)
         taskTouchHelper.attachToRecyclerView(binding.rvFavAnime)
@@ -64,8 +64,6 @@ class FavoriteFragment : Fragment() {
             when(direction){
                 ItemTouchHelper.LEFT -> {
                     favVM.delete(deletedFav)
-                    favList.remove(deletedFav)
-                    favAdapter.notifyItemRemoved(position)
                 }
             }
         }

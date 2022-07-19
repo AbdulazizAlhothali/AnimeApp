@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 
-class AnimeWorker (private val context: Context, val params: WorkerParameters): Worker(context, params) {
+class AnimeWorker (private val context: Context, params: WorkerParameters): Worker(context, params) {
     override fun doWork(): Result {
         NotificationHelper(context).createNotification(
             inputData.getString("title").toString(),

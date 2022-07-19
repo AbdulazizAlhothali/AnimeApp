@@ -1,24 +1,29 @@
 package com.example.animeapp.ui.favorite
 
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.animeapp.data.firestore.Favorite
+import com.example.animeapp.data.firestore.FavoriteLiveData
+import kotlinx.coroutines.flow.StateFlow
 
-class FavoriteViewModel : ViewModel() {
+class FavoriteViewModel(private val favRepo: FavoriteRepo) : ViewModel() {
 
-    private val favRepo= FavoriteRepo()
-    fun showMyFavAnime(newList:MutableList<Favorite>, viewLifecycleOwner: LifecycleOwner): LiveData<MutableList<Favorite>> {
-        val fav = MutableLiveData<MutableList<Favorite>>()
-        favRepo.showMyFavAnime(newList).observe(viewLifecycleOwner,{
-            fav.postValue(it)
-        })
-        return fav
+
+    fun showMyFavAnime2(ticker: String,newList:MutableList<Favorite>): FavoriteLiveData {
+        return favRepo.showMyFavAnime2(ticker,newList)
     }
 
     fun delete(favAnime: Favorite) {
         favRepo.deleteRepo(favAnime)
+    }
+}
+
+class FavoriteViewModelFactory (private val repo: FavoriteRepo): ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return FavoriteViewModel(repo) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
