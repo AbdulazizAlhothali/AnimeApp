@@ -1,20 +1,27 @@
 package com.example.animeapp.ui.animedetail
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.animeapp.databinding.AnimeDetailsFragmentBinding
+import kotlin.properties.Delegates
 
 class AnimeDetailsFragment : Fragment() {
 
 
     private val args: AnimeDetailsFragmentArgs by navArgs()
     private lateinit var binding: AnimeDetailsFragmentBinding
+    var x by Delegates.notNull<Float>()
+    var y by Delegates.notNull<Float>()
+    var dx by Delegates.notNull<Float>()
+    var dy by Delegates.notNull<Float>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +31,8 @@ class AnimeDetailsFragment : Fragment() {
         return binding.root
     }
 
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -46,6 +55,27 @@ class AnimeDetailsFragment : Fragment() {
             shareIntent.putExtra(Intent.EXTRA_TEXT, "I'm recommending you to watch $titleArg")
             shareIntent.type = "text/plain"
             startActivity(shareIntent)
+        }
+        binding.tvTitleDetails.setOnTouchListener { view, motionEvent ->
+
+
+            when(motionEvent.action){
+
+                MotionEvent.ACTION_MOVE -> {
+                    dx = motionEvent.x - x
+                    dy = motionEvent.y - y
+
+                    view.x = view.x + dx
+                    view.y = view.y + dy
+                }
+                MotionEvent.ACTION_DOWN -> {
+                    x = motionEvent.x
+                    y = motionEvent.y
+                }
+
+            }
+
+            true
         }
 
 

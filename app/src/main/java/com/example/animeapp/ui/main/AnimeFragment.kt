@@ -62,6 +62,8 @@ class AnimeFragment : Fragment() {
                 }
             }
     }
+
+
     private fun check (){
         if (i<20){
             binding.btnPreviouse.isEnabled= false

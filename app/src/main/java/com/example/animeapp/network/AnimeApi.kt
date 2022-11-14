@@ -1,6 +1,8 @@
 package com.example.animeapp.network
 
 import com.example.animeapp.data.AnimeData
+import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

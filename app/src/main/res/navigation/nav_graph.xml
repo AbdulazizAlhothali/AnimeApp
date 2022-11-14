@@ -38,6 +38,7 @@
         <argument
             android:name="detailsArg"
             app:argType="com.example.animeapp.data.Details" />
+
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

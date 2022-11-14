@@ -8,7 +8,7 @@ data class Attributes(
     val titles : Titles,
     val canonicalTitle : String,
     val averageRating : Double,
-    val ageRating : String,
+    val ageRating : String?,
     val status : String,
     val posterImage : PosterImage,
     val episodeCount : Int,

@@ -33,10 +33,10 @@ class TrendingAnimeFragment : Fragment() {
 
     private fun loadAnimeImages(){
 
-        trendingAnimeVM.trendingAnime().observe(viewLifecycleOwner, {
-            binding.trendingRV.adapter = AnimeAdapter(it.data,"AnimeFragment")
+        trendingAnimeVM.trendingAnime().observe(viewLifecycleOwner) {
+            binding.trendingRV.adapter = AnimeAdapter(it.data, "AnimeFragment")
             Log.d("Trending Anime main response", it.toString())
-        })
+        }
     }
 
 }

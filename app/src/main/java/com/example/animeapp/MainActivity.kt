@@ -12,6 +12,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
+
 
     private fun localization(localeName: String) {
         val locale = Locale(localeName)

@@ -91,7 +91,7 @@ class CustomHolder(private val binding: RecyclerViewItemBinding, private val cal
             tvRate.text = anime.attributes.averageRating.toString()*/
             myData = anime
             val description = anime.attributes.description
-            val ageRate = anime.attributes.ageRating
+            val ageRate: String? = anime.attributes.ageRating
             val animeEp = anime.attributes.episodeCount.toString() + "ep"
             check(anime)
             root.setOnClickListener {
@@ -100,7 +100,7 @@ class CustomHolder(private val binding: RecyclerViewItemBinding, private val cal
                     anime.attributes.posterImage.large,
                     description,
                     anime.attributes.averageRating.toString(),
-                    ageRate, animeEp
+                    ageRate ?: "no rate", animeEp
                 )
                 when (caller) {
                     "AnimeFragment" -> action =
