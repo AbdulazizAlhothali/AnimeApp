@@ -16,6 +16,10 @@ Anime Wolf is an application to explore anime, its detailes, share it with a fri
 
 -Retrofit: for Rest API
 
+-Coroutines
+
+-Jetpack Navigation component
+
 -Firebase Authentication
 
 -Firebase Firestore Database
